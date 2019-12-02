@@ -2,23 +2,37 @@ package com.xinghuo.pojo;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.util.Date;
-
+/**
+ * @Author 姜爽
+ * @Date 19:25 2019/12/2
+ * @Description  操作日志实体类
+ */
 public class TbFlow {
-    /**流程id**/
     private Integer flowId;
-    /**修改下**/
+
     private String editSelectioin;
-    /**修改人**/
+
     private String editUser;
-    /**时间**/
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date flowDate;
-    /**专利id**/
+
     private Integer patentId;
-    /**专利实体类**/
+
     private TbPatent tbPatent;
+
+    private Integer flag;
+
+    public TbFlow() {
+
+    }
+
+    public TbFlow(String editSelectioin, String editUser, Date flowDate, Integer patentId,int flag) {
+        this.editSelectioin = editSelectioin;
+        this.editUser = editUser;
+        this.flowDate = flowDate;
+        this.patentId = patentId;
+    }
 
     public TbPatent getTbPatent() {
         return tbPatent;
