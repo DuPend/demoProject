@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xinghuo.mapper.TbUserMapper">
+    <resultMap id="TbUserResultMap" type="com.xinghuo.pojo.TbUser">
+        <id column="user_id" property="userId" jdbcType="INTEGER"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="role" property="role" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="User_Colum_List">
+        user_id, user_name, password, role
+    </sql>
+    <select id="showAllUser" resultMap="TbUserResultMap" parameterType="String">
+        select
+        <include refid="User_Colum_List"/>
+        from tb_user
+    </select>
+    <select id="showUserByName" resultMap="TbUserResultMap" parameterType="String">
+        select
+        <include refid="User_Colum_List"/>
+        from tb_user
+        where user_name = #{userName}
+    </select>
+    <insert id="addUser" parameterType="com.xinghuo.pojo.TbUser">
+        insert into tb_user (user_name, password, role)
+        values (#{userName}, #{password}, #{role)
+     </insert>
+    <update id="updateUser" parameterType="com.xinghuo.pojo.TbUser">
+        update tb_user
+        set password = #{password}
+        where user_name = #{userName} and role = #{role}
+    </update>
+</mapper>

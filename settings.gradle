@@ -1,0 +1,5 @@
+rootProject.name = 'demoProject'
+include 'patentmanager-common'
+include 'patentmanager-core'
+include 'patentmanager-web'
+

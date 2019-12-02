@@ -1,0 +1,13 @@
+dependencies {
+    compile project(":patentmanager-common")
+    compile('mysql:mysql-connector-java')
+    compile group: 'com.alibaba', name: 'druid', version: '1.1.0'
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-jetty")
+    compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:1.2.0")
+    compile("org.springframework.boot:spring-boot-starter-data-redis")
+    compile("com.github.pagehelper:pagehelper-spring-boot-starter:1.2.2")
+    compile ('org.apache.poi:poi:3.15')
+    compile ('org.apache.poi:poi-ooxml-schemas:3.15')
+    compile ('org.apache.poi:poi-ooxml:3.15')
+}

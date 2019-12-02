@@ -1,0 +1,66 @@
+server:
+  port: 8080
+mybatis:
+  #mybatis配置文件所在路径
+  #config-location: classpath:mybatis/mybatis.cfg.xml
+  #所有Entity别名类所在包
+  type-aliases-package: com.xinghuo.pojo
+  # mapper映射文件
+  mapper-locations:
+    - classpath:mybatis/mapper/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    cache-enabled: false
+spring:
+  application:
+    name: microservicec loud-dept
+
+  #mysql配置
+  datasource :
+    #当前数据源操作类型
+    type: com.alibaba.druid.pool.DruidDataSource
+    # mysq1驱动包
+    driver-class-name: com.mysql.jdbc.Driver
+
+    #数据库名称
+    #    url: jdbc:mysql://127.0.0.1:3306/clouddb01?serverTimezone=UTC
+    url: jdbc:mysql://60.205.230.70:3306/patent_admin?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+    username: xinghuo1
+    password: xinghuo1
+    dbcp2:
+      #数据库连接池的最小维持连接数
+      min-idle: 5
+      #初始化连接数
+      initial-size: 5
+      #最大连接数
+      max-total: 5
+      #等待连接获取的最大超时时间
+      max-wait-millis: 20000
+
+  #redis配置
+  redis:
+    host: 172.16.138.240
+    port: 6379
+    password:
+    database: 1
+    pool:
+      # 连接超时时间 单位 ms（毫秒）
+      timeout: 3000
+      max-active: 2000
+      max-idle: 8
+      max-wait: -1
+      min-idle: 2
+logging:
+  level: debug
+
+#pagehelper分页插件配置
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSq
+visualPath : http://60.205.230.70/
+#visualPath : http://localhost:8080/
+savepath : /usr/share/nginx/html/public/
+

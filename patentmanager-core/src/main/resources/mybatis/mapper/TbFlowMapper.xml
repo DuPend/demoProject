@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xinghuo.mapper.TbFlowMapper">
+    <resultMap id="TbFlowResultMap" type="com.xinghuo.pojo.TbFlow">
+        <id column="flow_id" property="flowId" jdbcType="INTEGER"/>
+        <result column="edit_selectioin" property="editSelectioin" jdbcType="VARCHAR"/>
+        <result column="edit_user" property="editUser" jdbcType="VARCHAR"/>
+        <result column="flow_date" property="flowDate" jdbcType="TIMESTAMP"/>
+        <result column="patent_id" property="patentId" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_ListJs">
+        flow_id, edit_selectioin, edit_user, flow_date, patent_id
+    </sql>
+    <select id="showTbFlow" resultMap="TbFlowResultMap">
+        select
+        <include refid="Base_Column_ListJs" />
+        from tb_flow
+    </select>
+    <select id="showTbFlowById" resultMap="TbFlowResultMap">
+        select
+        <include refid="Base_Column_ListJs" />
+        from tb_flow
+        where patent_id=#{patentId}
+    </select>
+    <insert id="addTbFlow" parameterType="com.xinghuo.pojo.TbFlow" >
+        insert into tb_flow (edit_selectioin, edit_user, flow_date, patent_id)
+        values (#{editSelectioin}, #{editUser},#{flowDate}, #{patentId})
+     </insert>
+</mapper>

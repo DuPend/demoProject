@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="com.xinghuo.demoProject.main" target="1.8" />
+      <module name="com.xinghuo.demoProject.test" target="1.8" />
+      <module name="com.xinghuo.patentmanager-common.main" target="1.8" />
+      <module name="com.xinghuo.patentmanager-common.test" target="1.8" />
+      <module name="com.xinghuo.patentmanager-core.main" target="1.8" />
+      <module name="com.xinghuo.patentmanager-core.test" target="1.8" />
+      <module name="com.xinghuo.patentmanager-web.main" target="1.8" />
+      <module name="com.xinghuo.patentmanager-web.test" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
