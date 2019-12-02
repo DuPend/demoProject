@@ -18,7 +18,7 @@ import java.util.Arrays;
 import java.util.Date;
 
 
-@Aspect
+//@Aspect
 @Component
 public class LogsAspect {
     @Autowired
