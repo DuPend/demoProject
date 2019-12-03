@@ -14,7 +14,7 @@ import java.util.List;
  */
 @Mapper
 @Repository
-public interface SearchMapper {
+public interface TbSearchMapper {
 
     List<TbPatent> findCondition(TbPatent patent);
 
