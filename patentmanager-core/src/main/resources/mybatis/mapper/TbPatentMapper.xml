@@ -145,7 +145,7 @@ where tb_document.doc_type_id=tb_documentType.doc_type_id and patent_id=#{patent
             <result column="user_name" property="userName" jdbcType="VARCHAR"/>
         </association>
 
-        <association property="tbPlan" javaType="com.xinghuo.pojo.tbPlan">
+        <association property="tbPlan" javaType="com.xinghuo.pojo.TbPlan">
             <result column="plan_content" property="planContent" jdbcType="VARCHAR"/>
         </association>
     </resultMap>
