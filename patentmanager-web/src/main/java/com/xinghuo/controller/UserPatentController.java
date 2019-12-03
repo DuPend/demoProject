@@ -246,8 +246,8 @@ public class UserPatentController {
 
     //某专利的详细信息 段炼
     @RequestMapping("/findDetail")
-    public List<TbPatent> findDetail(Integer id) {
-        List<TbPatent> list = userPatentService.findDetail(id);
+    public List<TbPatent> findDetail(Integer patentId) {
+        List<TbPatent> list = userPatentService.findDetail(patentId);
         return list;
     }
 
