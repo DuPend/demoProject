@@ -7,11 +7,12 @@
         <result column="edit_user" property="editUser" jdbcType="VARCHAR"/>
         <result column="flow_date" property="flowDate" jdbcType="TIMESTAMP"/>
         <result column="patent_id" property="patentId" jdbcType="INTEGER"/>
+        <result column="flag" property="flag" jdbcType="INTEGER"/>
     </resultMap>
     <sql id="Base_Column_ListJs">
         flow_id, edit_selectioin, edit_user, flow_date, patent_id
     </sql>
-    <select id="showTbFlow" resultMap="TbFlowResultMap">
+    <select id="showTbFlowAdmin" resultMap="TbFlowResultMap">
         select
         <include refid="Base_Column_ListJs" />
         from tb_flow
@@ -20,10 +21,10 @@
         select
         <include refid="Base_Column_ListJs" />
         from tb_flow
-        where patent_id=#{patentId}
+        where patent_id=#{patentId} and flag=#{flag}
     </select>
     <insert id="addTbFlow" parameterType="com.xinghuo.pojo.TbFlow" >
-        insert into tb_flow (edit_selectioin, edit_user, flow_date, patent_id)
-        values (#{editSelectioin}, #{editUser},#{flowDate}, #{patentId})
+        insert into tb_flow (edit_selectioin, edit_user, flow_date, patent_id,flag)
+        values (#{editSelectioin}, #{editUser},#{flowDate}, #{patentId},#{flag})
      </insert>
 </mapper>

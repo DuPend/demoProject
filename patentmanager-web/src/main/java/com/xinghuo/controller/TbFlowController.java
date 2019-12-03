@@ -28,7 +28,6 @@ public class TbFlowController {
         Page<TbFlow> tbFlows = tbFlowService.showTbFlowService(page, rows);
         PageInfo<TbFlow> pageInfo = new PageInfo<>(tbFlows);
         return  pageInfo;
-//        return  tbFlowService.showTbFlowService();
     }
     //根据专利ID查询操作日志
     @RequestMapping("/showTbFlowById")
@@ -36,7 +35,7 @@ public class TbFlowController {
                                               @RequestParam(defaultValue = "1", value = "currentPage")int page,
                                               @RequestParam(defaultValue = "10", value = "pageSize")int rows) {
         Page<TbFlow> tbFlows = tbFlowService.showTbFlowByIdService(
-                Integer.valueOf((String) httpServletRequest.getParameter("patentId")), page, rows);
+                Integer.valueOf((String) httpServletRequest.getParameter("patentId")), page, rows,0);
         PageInfo<TbFlow> pageInfo = new PageInfo<>(tbFlows);
         return pageInfo;
     }
