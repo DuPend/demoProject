@@ -47,9 +47,9 @@ import java.util.Map;
     }
     //段炼
     @Override
-    public List<TbPatent> findDetail(Integer id) {
+    public List<TbPatent> findDetail(Integer patentId) {
 
-        List<TbPatent> list = tbUserPatentMapper.findDetail(id);
+        List<TbPatent> list = tbUserPatentMapper.findDetail(patentId);
         return list;
     }
     //段炼
