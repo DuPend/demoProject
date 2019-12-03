@@ -132,6 +132,11 @@
     </select>
 
 
+    <select id="state" parameterType="com.xinghuo.pojo.TbPatent">
+        select p.plan_id from tb_patent as p
+        where p.patent_id=#{patentId}
+
+    </select>
     <update id="update" parameterType="com.xinghuo.pojo.TbPatent">
         update tb_patent set plan_id=3,writer_id = #{writerId} where patent_id=#{patentId}
     </update>
