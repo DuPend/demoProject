@@ -19,7 +19,7 @@ public interface UserPatentService {
     /*段炼*/
     Page<TbPatent> findAll(int page, int rows);
     /*段炼*/
-    List<TbPatent> findDetail(Integer id);
+    List<TbPatent> findDetail(Integer patentId);
     /*段炼*/
     int update(TbPatent tbPatent);
 
