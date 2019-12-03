@@ -15,7 +15,7 @@ import java.util.List;
  */
 @Mapper
 @Repository
-public interface UserPatentMapper {
+public interface TbUserPatentMapper {
 
     Page<TbPatent> findAll();
     List<TbPatent> findDetail(Integer patentId);
