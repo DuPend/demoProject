@@ -4,7 +4,7 @@ import com.xinghuo.pojo.TbPatent;
 
 import java.util.List;
 
-public interface SearchService {
+public interface TbSearchService {
 
     List findCondition(TbPatent patent);
 

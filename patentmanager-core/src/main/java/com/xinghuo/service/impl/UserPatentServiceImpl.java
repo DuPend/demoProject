@@ -3,7 +3,7 @@ package com.xinghuo.service.impl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.xinghuo.mapper.TbPatentMapper;
-import com.xinghuo.mapper.UserPatentMapper;
+import com.xinghuo.mapper.TbUserPatentMapper;
 import com.xinghuo.pojo.TbDocument;
 import com.xinghuo.pojo.TbPatent;
 import com.xinghuo.service.UserPatentService;
@@ -25,7 +25,7 @@ import java.util.List;
     private TbPatentMapper patentMapper;
 
     @Autowired
-    private UserPatentMapper userPatentMapper;
+    private TbUserPatentMapper tbUserPatentMapper;
 
 //    @Autowired
 //    private RedisTemplate<String, Object> redisTemplate;
@@ -35,12 +35,12 @@ import java.util.List;
     public Page<TbPatent> findAll(int pageNum, int pageSize) {
 
         //用插件进行分页
-        List<TbPatent> list = userPatentMapper.findAll();
+        List<TbPatent> list = tbUserPatentMapper.findAll();
         if (null == list || list.size() == 0) {
             return null;
         }
         PageHelper.startPage(pageNum, pageSize);
-        return userPatentMapper.findAll();
+        return tbUserPatentMapper.findAll();
 
 
     }
@@ -48,13 +48,13 @@ import java.util.List;
     @Override
     public List<TbPatent> findDetail(Integer patentId) {
 
-        List<TbPatent> list = userPatentMapper.findDetail(patentId);
+        List<TbPatent> list = tbUserPatentMapper.findDetail(patentId);
         return list;
     }
     //段炼
     @Override
     public int update(TbPatent tbPatent) {
-        return userPatentMapper.update(tbPatent);
+        return tbUserPatentMapper.update(tbPatent);
     }
 
     /**

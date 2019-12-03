@@ -1,7 +1,7 @@
 package com.xinghuo.service.impl;
 
 import com.xinghuo.mapper.AdminPatentMapper;
-import com.xinghuo.mapper.UserPatentMapper;
+import com.xinghuo.mapper.TbUserPatentMapper;
 import com.xinghuo.pojo.TbPatent;
 import com.xinghuo.service.TbExportService;
 import org.apache.poi.ss.usermodel.Row;
@@ -19,14 +19,14 @@ import java.util.List;
 @Service
 public class TbExportServiceImpl implements TbExportService {
     @Autowired
-    private UserPatentMapper userPatentMapper;
+    private TbUserPatentMapper tbUserPatentMapper;
 
     @Autowired
     private AdminPatentMapper adminPatentMapper;
 
     @Override
     public XSSFWorkbook show() {
-        List<TbPatent> list = userPatentMapper.findAll();
+        List<TbPatent> list = tbUserPatentMapper.findAll();
         XSSFWorkbook wb = new XSSFWorkbook();
         try {
 

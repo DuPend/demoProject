@@ -5,7 +5,7 @@ import com.xinghuo.pojo.PageInfo;
 import com.xinghuo.pojo.Result;
 import com.xinghuo.pojo.TbDocument;
 import com.xinghuo.pojo.TbPatent;
-import com.xinghuo.service.SearchService;
+import com.xinghuo.service.TbSearchService;
 import com.xinghuo.service.TbPlanService;
 import com.xinghuo.service.UploadFileService;
 import com.xinghuo.service.UserPatentService;
@@ -242,7 +242,7 @@ public class UserPatentController {
     }
 
     @Autowired
-    private SearchService searchService;
+    private TbSearchService tbSearchService;
 
 
     /**
@@ -283,7 +283,7 @@ public class UserPatentController {
      */
     @RequestMapping("/findCondition")
     public List<TbPatent> findCondition(TbPatent patent) {
-        List<TbPatent> list = searchService.findCondition(patent);
+        List<TbPatent> list = tbSearchService.findCondition(patent);
         return list;
     }
 
