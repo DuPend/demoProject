@@ -21,7 +21,13 @@
         select
         <include refid="Base_Column_ListJs" />
         from tb_flow
-        where patent_id=#{patentId} and flag=#{flag}
+        where patent_id=#{patentId} and flag=0
+    </select>
+    <select id="showTbFlowByIdAdmin" resultMap="TbFlowResultMap">
+        select
+        <include refid="Base_Column_ListJs" />
+        from tb_flow
+        where patent_id=#{patentId}
     </select>
     <insert id="addTbFlow" parameterType="com.xinghuo.pojo.TbFlow" >
         insert into tb_flow (edit_selectioin, edit_user, flow_date, patent_id,flag)

@@ -29,13 +29,23 @@ public class TbFlowController {
         PageInfo<TbFlow> pageInfo = new PageInfo<>(tbFlows);
         return  pageInfo;
     }
-    //根据专利ID查询操作日志
-    @RequestMapping("/showTbFlowById")
-    PageInfo<TbFlow> showTbFlowByIdController(HttpServletRequest httpServletRequest,
+    //普通用户根据专利ID查询操作日志
+    @RequestMapping("/showTbFlowByIdUser")
+    PageInfo<TbFlow> showTbFlowByIdUserController(HttpServletRequest httpServletRequest,
                                               @RequestParam(defaultValue = "1", value = "currentPage")int page,
                                               @RequestParam(defaultValue = "10", value = "pageSize")int rows) {
         Page<TbFlow> tbFlows = tbFlowService.showTbFlowByIdService(
-                Integer.valueOf((String) httpServletRequest.getParameter("patentId")), page, rows,0);
+                Integer.valueOf((String) httpServletRequest.getParameter("patentId")), page, rows);
+        PageInfo<TbFlow> pageInfo = new PageInfo<>(tbFlows);
+        return pageInfo;
+    }
+    //管理员根据专利ID查询操作日志
+    @RequestMapping("/showTbFlowByIdAdmin")
+    PageInfo<TbFlow> showTbFlowByIdAdminController(HttpServletRequest httpServletRequest,
+                                              @RequestParam(defaultValue = "1", value = "currentPage")int page,
+                                              @RequestParam(defaultValue = "10", value = "pageSize")int rows) {
+        Page<TbFlow> tbFlows = tbFlowService.showTbFlowByIdAdminService(
+                Integer.valueOf((String) httpServletRequest.getParameter("patentId")), page, rows);
         PageInfo<TbFlow> pageInfo = new PageInfo<>(tbFlows);
         return pageInfo;
     }

@@ -24,5 +24,10 @@ public interface TbFlowMapper {
      * @Description  根据专利ID查询操作日志
      * @return com.github.pagehelper.Page<com.xinghuo.pojo.TbFlow>
      */
-    Page<TbFlow> showTbFlowById(Integer patentId,Integer flag);
+    Page<TbFlow> showTbFlowById(Integer patentId);
+    /**
+     * @Description  管理员根据专利ID查询操作日志
+     * @return com.github.pagehelper.Page<com.xinghuo.pojo.TbFlow>
+     */
+    Page<TbFlow> showTbFlowByIdAdmin(Integer patentId);
 }

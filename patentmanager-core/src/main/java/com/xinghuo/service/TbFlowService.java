@@ -18,5 +18,8 @@ public interface TbFlowService {
     Page<TbFlow> showTbFlowService(int page, int rows);
     //根据专利ID查询操作日志
 
-    Page<TbFlow> showTbFlowByIdService(Integer patentId, int page, int rows,Integer flag);
+    Page<TbFlow> showTbFlowByIdService(Integer patentId, int page, int rows);
+    //管理员根据专利ID查询操作日志
+
+    Page<TbFlow> showTbFlowByIdAdminService(Integer patentId, int page, int rows);
 }
