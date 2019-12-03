@@ -10,8 +10,9 @@ import com.xinghuo.service.UserPatentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 /**
  * @program: mypatent
@@ -46,9 +47,9 @@ import java.util.List;
     }
     //段炼
     @Override
-    public List<TbPatent> findDetail(Integer patentId) {
+    public List<TbPatent> findDetail(Integer id) {
 
-        List<TbPatent> list = tbUserPatentMapper.findDetail(patentId);
+        List<TbPatent> list = tbUserPatentMapper.findDetail(id);
         return list;
     }
     //段炼
@@ -113,7 +114,30 @@ import java.util.List;
      * @Return:
      */
     @Override public List<TbDocument> selectLatestDocumentById(Integer patentId) {
-        return patentMapper.selectLatestDocumentById(patentId);
+        List<String> ids=patentMapper.selectLatestDocId(patentId);
+        String str=ids.get(0);
+        for(int i=1;i<ids.size();i++) {
+            str+=","+ids.get(i);
+        }
+        Map map = new HashMap();
+        map.put("ids",str.split(","));
+        return patentMapper.selectLatestDocumentById(map);
+    }
+
+    /**
+     *@Author:Yuyue
+     *@Description:查询是否有该专利,最新修改
+     *@Date:14:19  2019/12/3
+     *@Param:
+     *@Return:
+     */
+    @Override
+    public Boolean selectPatent(Integer patentId){
+        if(patentMapper.selectPatent(patentId)!=null){
+            return true;
+        }else {
+            return false;
+        }
     }
 
     /**

@@ -19,46 +19,19 @@ public interface UserPatentService {
     /*段炼*/
     Page<TbPatent> findAll(int page, int rows);
     /*段炼*/
-    List<TbPatent> findDetail(Integer patentId);
+    List<TbPatent> findDetail(Integer id);
     /*段炼*/
     int update(TbPatent tbPatent);
 
-    /**
-     * 查询用户被认领的专利
-     * @param userId   用户id
-     * @param page    当前页
-     * @param rows    一页显示多少条
-     * @return  专利列表
-     */
+    //于悦
     Page<TbPatent> getPatentByUser(Integer userId, int page, int rows);
-
-    /**
-     * 专利详情
-     * @param patentId 专利id
-     * @return   专利详情
-     */
+    //于悦
     TbPatent getPatentById(Integer patentId);
-
-    /**
-     * 修改专利
-     * @param tbPatent 专利对象
-     */
+    //于悦
     void  updatePatentById(TbPatent tbPatent);
-
-    /**
-     * 查询最新的专利
-     * @param patentId 专利id
-     * @return
-     */
+    //于悦
     List<TbDocument> selectLatestDocumentById(Integer patentId);
-
-    /**
-     * @Author:Yuyue
-     * @Description:管理员查询出所有当前专利的文件
-     * @Date:17:42 2019/11/22
-     * @Param: 专利id
-     * @Return: 返回文件list
-     */
+    //于悦
     List<TbDocument> selectAllDocumentById(Integer patentId);
     //修改
     /**
@@ -69,6 +42,16 @@ public interface UserPatentService {
      *@Return:
      */
     void updatePatentPlan(TbPatent tbPatent);
+
+    /**
+     *@Author:Yuyue
+     *@Description:查询是否有该专利
+     *@Date:14:19  2019/12/3
+     *@Param:
+     *@Return:
+     */
+    Boolean selectPatent(Integer patentId);
+
     //添加专利   liujian
     void addPatent(TbPatent tbPatent);
 

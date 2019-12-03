@@ -14,4 +14,13 @@ public interface TbUserService {
     TbUser showUserByNameService(String userName);
     //查询所有的用户信息
     List<TbUser> showAllUserService();
+
+    /**
+    *@Author:Yuyue
+    *@Description:验证是否有这个用户
+    *@Date:14:41  2019/12/3
+    *@Param:
+    *@Return:
+    */
+    Boolean selectUser(Integer userId);
 }

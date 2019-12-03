@@ -32,4 +32,12 @@ public class TbUserServiceImpl implements TbUserService {
     public List<TbUser> showAllUserService() {
         return tbUserMapper.showAllUser();
     }
+
+    @Override
+    public Boolean selectUser(Integer userId) {
+        if ( null == tbUserMapper.selectUser(userId)) {
+            return false;
+        }
+        return true;
+    }
 }

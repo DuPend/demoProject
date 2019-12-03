@@ -18,4 +18,6 @@ public interface TbUserMapper {
     TbUser showUserByName(String userName);
     //查询所有的用户信息
     List<TbUser> showAllUser();
+
+    TbUser selectUser(Integer userId);
 }
