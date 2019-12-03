@@ -33,6 +33,8 @@ public class UserPatentController {
     private HttpServletRequest httpServletRequest;
     @Autowired
     private TbUserService tbUserService;
+    @Autowired
+    private TbSearchService tbSearchService;
 
     /**
     *@Author:Yuyue
@@ -229,8 +231,7 @@ public class UserPatentController {
         return result;
     }
 
-    @Autowired
-    private TbSearchService searchService;
+
 
     //所有专利 段炼
     @RequestMapping("/findAll")
@@ -253,7 +254,7 @@ public class UserPatentController {
     //条件查询 段炼
     @RequestMapping("/findCondition")
     public List<TbPatent> findCondition(TbPatent patent) {
-        List<TbPatent> list = searchService.findCondition(patent);
+        List<TbPatent> list = tbSearchService.findCondition(patent);
         return list;
     }
 
