@@ -18,6 +18,7 @@ import java.util.List;
 @Service
 public class TbFlowServiceImpl implements TbFlowService {
     //注入mapper层
+
     @Autowired
     private TbFlowMapper tbFlowMapper;
     @Override
@@ -28,13 +29,12 @@ public class TbFlowServiceImpl implements TbFlowService {
     @Override
     public Page<TbFlow> showTbFlowService(int page, int rows) {
         //用插件进行分页
-        List<TbFlow> list = tbFlowMapper.showTbFlow();
+        List<TbFlow> list = tbFlowMapper.showTbFlowAdmin();
         if (null == list || list.size() == 0) {
             return null;
         }
         PageHelper.startPage(page, rows);
-//        return adminPatentMapper.selectAll();
-        return tbFlowMapper.showTbFlow();
+        return tbFlowMapper.showTbFlowAdmin();
     }
 
     @Override
@@ -46,5 +46,16 @@ public class TbFlowServiceImpl implements TbFlowService {
         }
         PageHelper.startPage(page, rows);
         return tbFlowMapper.showTbFlowById(patentId);
+    }
+
+    @Override
+    public Page<TbFlow> showTbFlowByIdAdminService(Integer patentId, int page, int rows) {
+        //用插件进行分页
+        List<TbFlow> list = tbFlowMapper.showTbFlowByIdAdmin(patentId);
+        if (null == list || list.size() == 0) {
+            return null;
+        }
+        PageHelper.startPage(page, rows);
+        return tbFlowMapper.showTbFlowByIdAdmin(patentId);
     }
 }
