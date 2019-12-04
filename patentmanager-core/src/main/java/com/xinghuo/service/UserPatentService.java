@@ -23,6 +23,7 @@ public interface UserPatentService {
      *@description:查询专利所有
      */
     Page<TbPatent> findAll(int page, int rows);
+
     /**
      *@Author:duanlian
      *@param:
@@ -30,6 +31,14 @@ public interface UserPatentService {
      *@description:查询专利详情
      */
     List<TbPatent> findDetail(Integer patentId);
+
+    /**
+     *@Author:duanlian
+     *@param:
+     *@return:
+     *@description:更新前先确定专利状态
+     */
+    int state(Integer patentId);
     /**
      *@Author:duanlian
      *@param:
@@ -45,6 +54,7 @@ public interface UserPatentService {
      * @param rows    一页显示多少条
      * @return  专利列表
      */
+
     Page<TbPatent> getPatentByUser(Integer userId, int page, int rows);
 
     /**
