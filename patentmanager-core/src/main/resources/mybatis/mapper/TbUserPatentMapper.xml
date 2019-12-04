@@ -132,7 +132,7 @@
     </select>
 
 
-    <select id="state" parameterType="com.xinghuo.pojo.TbPatent">
+    <select id="state" parameterType="com.xinghuo.pojo.TbPatent" resultType="Integer">
         select p.plan_id from tb_patent as p
         where p.patent_id=#{patentId}
 

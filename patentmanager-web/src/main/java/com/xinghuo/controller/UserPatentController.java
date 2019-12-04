@@ -1,10 +1,8 @@
 package com.xinghuo.controller;
 
 import com.github.pagehelper.Page;
-import com.xinghuo.pojo.PageInfo;
-import com.xinghuo.pojo.Result;
-import com.xinghuo.pojo.TbDocument;
-import com.xinghuo.pojo.TbPatent;
+import com.xinghuo.common.utils.TokenUtil;
+import com.xinghuo.pojo.*;
 import com.xinghuo.service.*;
 import com.xinghuo.target.Action;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author:段炼 和于悦 on 2019/11/22 17:36
@@ -281,28 +280,27 @@ public class UserPatentController {
     }
 
 
-    /**
-     *@Author:duanlian
-     *@param:
-     *@return:
-     *@description:认领状态
-     */
     @RequestMapping("/updateCondition")
-    @Action(name = "reconn")
-    public Result update(@RequestBody TbPatent tbPatent) {
+    @Action(name = "change")
+    public ResponseMessage update( TbPatent tbPatent,HttpServletRequest request) throws Exception {
+        System.out.println("已进入");
         int planId = userPatentService.state(tbPatent.getPatentId());
         if (planId != 2) {
-            return new Result(false,"该专利已被认领，请刷新页面！");
+            return  ResponseMessage.error("该专利已被认领，请刷新页面",500);
         } else {
+            Map<String,String> map = TokenUtil.verifyToken(request.getHeader("token"));
+            String writerId = map.get("userid");
+            tbPatent.setWriterId(Integer.valueOf(writerId));
             int result = userPatentService.update(tbPatent);
             //获取session
             HttpSession httpSession = httpServletRequest.getSession();
             //获取当前专利的id
             httpSession.setAttribute("patentId", tbPatent.getPatentId().toString());
             if (result >= 1) {
-                return new Result(true, "修改成功");
+                /**修改成功**/
+                return  ResponseMessage.ok(200);
             } else {
-                return new Result(false, "修改失败");
+                return ResponseMessage.error("修改失败",500);
             }
         }
     }
