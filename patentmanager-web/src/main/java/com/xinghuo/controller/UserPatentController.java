@@ -285,7 +285,7 @@ public class UserPatentController {
      *@description:认领状态
      */
     @RequestMapping("/updateCondition")
-    @Action(name = "change")
+    @Action(name = "reconn")
     public Result update(@RequestBody TbPatent tbPatent) {
         int planId = userPatentService.state(tbPatent.getPatentId());
         if (planId != 2) {

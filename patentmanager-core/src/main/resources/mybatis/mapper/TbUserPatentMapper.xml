@@ -141,4 +141,13 @@
         update tb_patent set plan_id=3,writer_id = #{writerId} where patent_id=#{patentId}
     </update>
 
+    <select id="showPatentByStatus" parameterType="java.lang.Integer" resultMap="UserResultMap">
+        select <include refid="Column_ListDetail" />
+        FROM   tb_patent as p
+        LEFT JOIN tb_flow as f on p.patent_id=f.patent_id
+        LEFT JOIN tb_plan as plan on p.plan_id=plan.plan_id
+        left join tb_user as u on p.writer_id=u.user_id
+        where p.plan_id = #{planId}
+    </select>
+
 </mapper>
