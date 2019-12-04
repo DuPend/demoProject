@@ -1,6 +1,7 @@
 Thumbs.db
 .DS_Store
 .gradle
+*.class
 build/
 classes/
 .idea
