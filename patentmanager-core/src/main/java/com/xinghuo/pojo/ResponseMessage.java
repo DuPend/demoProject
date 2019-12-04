@@ -103,6 +103,7 @@ public class ResponseMessage implements Serializable {
         this.code = success ? 200 : 500;
         this.data = data;
         this.success = success;
+        this.message=success ? "成功！":"";
     }
 
     public ResponseMessage(boolean success, Object data, DataSignEnum dataSign) {

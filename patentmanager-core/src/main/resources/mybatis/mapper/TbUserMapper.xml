@@ -53,7 +53,8 @@
 
 
     <select id="selectUser" resultType="com.xinghuo.pojo.TbUser" parameterType="Integer">
-        select <include refid="User_Column_List"/>
+        select
+        <include refid="User_Column_List"/>
         from tb_user
         where user_id = #{userId}
     </select>

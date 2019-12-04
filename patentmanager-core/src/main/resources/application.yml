@@ -7,7 +7,7 @@ mybatis:
   type-aliases-package: com.xinghuo.pojo
   # mapper映射文件
   mapper-locations:
-    - classpath:mybatis/mapper/**/*.xml
+    - classpath*:mybatis/mapper/**/*.xml
   configuration:
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
