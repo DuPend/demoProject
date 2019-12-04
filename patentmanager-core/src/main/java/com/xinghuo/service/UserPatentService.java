@@ -1,6 +1,7 @@
 package com.xinghuo.service;
 
 import com.github.pagehelper.Page;
+import com.xinghuo.mapper.TbUserPatentMapper;
 import com.xinghuo.pojo.TbDocument;
 import com.xinghuo.pojo.TbPatent;
 import org.springframework.stereotype.Service;
@@ -108,6 +109,8 @@ public interface UserPatentService {
     *@Return:
     */
     Page<TbPatent> getFailPatentByUser(Integer userId, int page, int rows);
+
+    Page<TbPatent> showPatentByStatus(Integer planId,int page, int rows);
 }
 
 

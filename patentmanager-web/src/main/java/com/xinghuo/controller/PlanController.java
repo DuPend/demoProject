@@ -43,7 +43,7 @@ public class PlanController {
     }
 
     //审核专利
-    @Action(name = "change")
+    @Action(name = "check")
     @RequestMapping("/checkPatent")
     public Result checkPatent(Integer patentId, Integer flag) {
        /**

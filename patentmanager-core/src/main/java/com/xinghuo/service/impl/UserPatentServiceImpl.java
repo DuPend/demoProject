@@ -219,9 +219,16 @@ import java.util.Map;
      * @Param:
      * @Return:
      */
-    @Override public Page<TbPatent> getFailPatentByUser(Integer userId, int page, int rows) {
+    @Override
+    public Page<TbPatent> getFailPatentByUser(Integer userId, int page, int rows) {
         PageHelper.startPage(page, rows);
         return patentMapper.getFailPatentByUser(userId);
+    }
+
+    @Override
+    public Page<TbPatent> showPatentByStatus(Integer planId,int page, int rows) {
+        PageHelper.startPage(page, rows);
+        return tbUserPatentMapper.showPatentByStatus(planId);
     }
 
 }

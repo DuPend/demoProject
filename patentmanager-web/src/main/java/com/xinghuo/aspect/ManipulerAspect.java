@@ -61,17 +61,13 @@ public class ManipulerAspect {
         } else if (action.name().equals("upfile")) {
             tbFlow = new TbFlow("上传文件",userName,new Date(),patentId,0);
             tbFlowService.addTbFlowService(tbFlow);
-        } else if(action.name().equals("agree")) {
-            tbFlow = new TbFlow("同意申请",userName,new Date(),patentId,1);
+        } else if(action.name().equals("check")) {
+            tbFlow = new TbFlow("审核专利",userName,new Date(),patentId,1);
             tbFlowService.addTbFlowService(tbFlow);
         } else if(action.name().equals("reconn")) {
             tbFlow = new TbFlow("认领专利", userName, new Date(), patentId, 1);
             tbFlowService.addTbFlowService(tbFlow);
-        } else if(action.name().equals("regeter")) {
-            tbFlow = new TbFlow("驳回申请", userName, new Date(), patentId, 1);
-            tbFlowService.addTbFlowService(tbFlow);
         }
     }
-
 }
 

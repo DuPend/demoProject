@@ -24,5 +24,11 @@ public interface TbUserPatentMapper {
     int state(Integer patentId);
     /**更新专利状态 **/
     int update(TbPatent tbPatent);
+    /**
+     * @Author 姜爽
+     * @Date 15:42 2019/12/4
+     * 根据审核状态查询专利
+     */
+    Page<TbPatent> showPatentByStatus(Integer planId);
 
 }
