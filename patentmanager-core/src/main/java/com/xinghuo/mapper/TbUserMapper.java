@@ -18,4 +18,6 @@ public interface TbUserMapper {
     List<TbUser> showAllUser();
     //更改用户登陆状态
     void updateUser(TbUser tbUser);
+
+    TbUser selectUser(Integer userId);
 }

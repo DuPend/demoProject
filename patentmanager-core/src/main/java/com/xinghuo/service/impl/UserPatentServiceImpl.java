@@ -3,15 +3,16 @@ package com.xinghuo.service.impl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.xinghuo.mapper.TbPatentMapper;
-import com.xinghuo.mapper.UserPatentMapper;
+import com.xinghuo.mapper.TbUserPatentMapper;
 import com.xinghuo.pojo.TbDocument;
 import com.xinghuo.pojo.TbPatent;
 import com.xinghuo.service.UserPatentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 /**
  * @program: mypatent
@@ -25,37 +26,65 @@ import java.util.List;
     private TbPatentMapper patentMapper;
 
     @Autowired
-    private UserPatentMapper userPatentMapper;
+    private TbUserPatentMapper tbUserPatentMapper;
 
 //    @Autowired
 //    private RedisTemplate<String, Object> redisTemplate;
 
-    //段炼
+    /**
+     *@Author:duanlian
+     *@param:
+     *@return:
+     *@description:所有专利
+     */
     @Override
     public Page<TbPatent> findAll(int pageNum, int pageSize) {
 
         //用插件进行分页
-        List<TbPatent> list = userPatentMapper.findAll();
+        List<TbPatent> list = tbUserPatentMapper.findAll();
         if (null == list || list.size() == 0) {
             return null;
         }
         PageHelper.startPage(pageNum, pageSize);
-        return userPatentMapper.findAll();
+        return tbUserPatentMapper.findAll();
 
 
     }
-    //段炼
+    /**
+     *@Author:duanlian
+     *@param:
+     *@return:
+     *@description:某专利的详细信息
+     */
     @Override
     public List<TbPatent> findDetail(Integer patentId) {
 
-        List<TbPatent> list = userPatentMapper.findDetail(patentId);
+        List<TbPatent> list = tbUserPatentMapper.findDetail(patentId);
         return list;
     }
-    //段炼
+
+    /**
+     *@Author:duanlian
+     *@param:
+     *@return:
+     *@description:更新前先确定专利状态
+     */
+    @Override public int state(Integer patentId) {
+        int planId = tbUserPatentMapper.state(patentId);
+        return planId;
+    }
+    /**
+     *@Author:duanlian
+     *@param:
+     *@return:
+     *@description:认领状态
+     */
     @Override
     public int update(TbPatent tbPatent) {
-        return userPatentMapper.update(tbPatent);
+        return tbUserPatentMapper.update(tbPatent);
     }
+
+
 
     /**
      * @Author:Yuyue
@@ -113,7 +142,30 @@ import java.util.List;
      * @Return:
      */
     @Override public List<TbDocument> selectLatestDocumentById(Integer patentId) {
-        return patentMapper.selectLatestDocumentById(patentId);
+        List<String> ids=patentMapper.selectLatestDocId(patentId);
+        String str=ids.get(0);
+        for(int i=1;i<ids.size();i++) {
+            str+=","+ids.get(i);
+        }
+        Map map = new HashMap();
+        map.put("ids",str.split(","));
+        return patentMapper.selectLatestDocumentById(map);
+    }
+
+    /**
+     *@Author:Yuyue
+     *@Description:查询是否有该专利,最新修改
+     *@Date:14:19  2019/12/3
+     *@Param:
+     *@Return:
+     */
+    @Override
+    public Boolean selectPatent(Integer patentId){
+        if(patentMapper.selectPatent(patentId)!=null){
+            return true;
+        }else {
+            return false;
+        }
     }
 
     /**

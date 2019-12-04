@@ -4,9 +4,11 @@ import com.xinghuo.pojo.Result;
 import com.xinghuo.pojo.TbDocument;
 import com.xinghuo.pojo.TbDocumentType;
 import com.xinghuo.service.UploadFileService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +29,7 @@ import java.util.Date;
 
 
 @Service
+@Slf4j
 public class UploadFileServiceImpl implements UploadFileService {
 
     @Autowired
@@ -64,31 +67,53 @@ public class UploadFileServiceImpl implements UploadFileService {
     }
 
 
+
+    @Transactional
     @Override
-    public Result uploadFile(MultipartFile file, Integer patentId, Integer typeId, HttpServletRequest request) {
+    public Result uploadFiles(MultipartFile[] files, Integer patentId, Integer typeId, HttpServletRequest request) {
+        if (null != files && files.length > 0) {
+            Date date = new Date();
+            Result result=new Result(false,null);
+            for (MultipartFile file : files) {
+                String fileName = file.getOriginalFilename();
+                String suffixName = fileName.substring(fileName.lastIndexOf("."));
+                if (".doc".equals(suffixName) || ".docx".equals(suffixName) ||
+                        ".pdf".equals(suffixName) || ".zip".equals(suffixName) || ".md".equals(suffixName)) {
+                        result = uploadFile(file, patentId, typeId, date, request);
+                       if (!result.isSuccess()) {
+                           throw  new RuntimeException("上传文件失败！");
+                       }
+                } else {
+                    return new Result(false,"上传的文件中有不允许上传的文件类型！");
+                }
+            }
+            return new Result(true,"文件上传成功！");
+        } else {
+            return new Result(false,"上传的文件为空！");
+        }
+    }
 
+    @Override
+    public Result uploadFile(MultipartFile file, Integer patentId, Integer typeId,Date date, HttpServletRequest request) {
         Result result = new Result(false, null);
-
         if (file.isEmpty()) {
             result.setMessage("文件为空，上传失败");
             result.setSuccess(false);
             return result;
         }
         String fileName = file.getOriginalFilename();
-        //java.util.Date转换为String
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
         fileName = fileName.substring(0, fileName.lastIndexOf("."));
-        Date date = new Date();
-
+        Date dateName = new Date();
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
-        String str  =  format.format(date);
+        String str  =  format.format(dateName);
         fileName = fileName + "-" + str + suffixName;
-
         int size = (int) file.getSize();
-//        String projectUrl = request.getSession().getServletContext().getRealPath("/") + "\\upfile" ;
-//        System.out.println("projectUrl:" + projectUrl);
         String path = savepath + "upfile/" + fileName;
         String url = downfile + "upfile/" + fileName;
+
+        String projectUrl = request.getSession().getServletContext().getRealPath("/");
+       /* String path=projectUrl+"/"+fileName;*/
         File dest = new File(path);
         System.out.println(downfile);
         System.out.println("url:" + url);
@@ -112,7 +137,6 @@ public class UploadFileServiceImpl implements UploadFileService {
             result.setSuccess(false);
             return result;
         }
-
         return addFile(patentId, typeId, fileName, url);
     }
 }

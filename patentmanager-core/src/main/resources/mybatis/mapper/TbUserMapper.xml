@@ -10,13 +10,13 @@
         <result column="login_status" property="loginStatus" jdbcType="CHAR" ></result>
     </resultMap>
 
-    <sql id="User_Colum_List">
+    <sql id="User_Column_List">
         user_id, user_name, password, role,login_status
     </sql>
 
     <select id="showAllUser" resultMap="TbUserResultMap" parameterType="String">
         select
-        <include refid="User_Colum_List"/>
+        <include refid="User_Column_List"/>
         from tb_user
     </select>
 
@@ -24,7 +24,7 @@
     <select id="showUserByNameAndPassword"  parameterType="com.xinghuo.pojo.TbUser" resultMap="TbUserResultMap">
         <!--zhou_gc  just for userlogin method-->
         select
-        <include refid="User_Colum_List"/>
+        <include refid="User_Column_List"/>
         from tb_user
         <where>
                 <if test="userName != null  and userName != ''">
@@ -51,6 +51,12 @@
         </where>
     </update>
 
+
+    <select id="selectUser" resultType="com.xinghuo.pojo.TbUser" parameterType="Integer">
+        select <include refid="User_Column_List"/>
+        from tb_user
+        where user_id = #{userId}
+    </select>
     <insert id="addUser" parameterType="com.xinghuo.pojo.TbUser">
         insert into tb_user (user_name, password, role)
         values (#{userName}, #{password}, #{role)

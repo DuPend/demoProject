@@ -31,4 +31,12 @@ public class TbUserServiceImpl implements TbUserService {
     @Override public void updateLoginStatus(TbUser tbUser) {
           tbUserMapper.updateUser(tbUser);
     }
+
+    @Override
+    public Boolean selectUser(Integer userId) {
+        if ( null == tbUserMapper.selectUser(userId)) {
+            return false;
+        }
+        return true;
+    }
 }

@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * @description: TODO
@@ -12,6 +13,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
  * @date: 2019-11-20 17:36
  * @version: V1.0
  */
+@EnableTransactionManagement
 @SpringBootApplication
 public class PatentmanagerApplication {
     public static void main(String[] args) {

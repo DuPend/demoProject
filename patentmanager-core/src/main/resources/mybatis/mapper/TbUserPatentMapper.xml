@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.xinghuo.mapper.UserPatentMapper">
+<mapper namespace="com.xinghuo.mapper.TbUserPatentMapper">
 
     <resultMap id="UserResultMap" type="com.xinghuo.pojo.TbPatent">
         <id column="patent_id" property="patentId" jdbcType="INTEGER"/>
@@ -132,6 +132,11 @@
     </select>
 
 
+    <select id="state" parameterType="com.xinghuo.pojo.TbPatent">
+        select p.plan_id from tb_patent as p
+        where p.patent_id=#{patentId}
+
+    </select>
     <update id="update" parameterType="com.xinghuo.pojo.TbPatent">
         update tb_patent set plan_id=3,writer_id = #{writerId} where patent_id=#{patentId}
     </update>

@@ -28,7 +28,7 @@
             <result column="cpassword" property="password" jdbcType="VARCHAR"/>
             <result column="crole" property="role" jdbcType="INTEGER"/>
         </association>
-        <association property="tbPlan" javaType="TbPlan">
+        <association property="tbPlan" javaType="tbPlan">
             <id column="plan_id" property="planId" jdbcType="INTEGER"/>
             <result column="plan_content" property="planContent" jdbcType="VARCHAR"/>
         </association>
@@ -52,7 +52,7 @@
         </association>
     </resultMap>
 
-    <sql id="Patent_Colum_List">
+    <sql id="Patent_Column_List">
   tb_patent.patent_id,batch,patent_name,case_number,propose_number,proposer_name,law_status,
     patent_type,inventor_name,propose_date,technical_contact,remark,writer.user_name as wuser_name,writer.role as wrole,
     creater.user_name as cuser_name,tb_patent.plan_id as plan_id,plan_content,ind_details,ind_id
@@ -60,7 +60,7 @@
     <!--查询用户所有已经被认领正常的专利-于悦-->
     <select id="getPatentByUser" resultMap="TbPatentResultMap" parameterType="Integer">
         select
-        <include refid="Patent_Colum_List"/>
+        <include refid="Patent_Column_List"/>
         from tb_patent
         LEFT JOIN tb_plan on tb_plan.plan_id=tb_patent.plan_id
         LEFT JOIN tb_user as writer ON tb_patent.writer_id=writer.user_id
@@ -74,7 +74,7 @@
     <!--查询用户所有审核未被通过的专利-于悦-->
     <select id="getFailPatentByUser" resultMap="TbPatentResultMap" parameterType="Integer">
         select
-        <include refid="Patent_Colum_List"/>
+        <include refid="Patent_Column_List"/>
         from tb_patent
         LEFT JOIN tb_plan on tb_plan.plan_id=tb_patent.plan_id
         LEFT JOIN tb_user as writer ON tb_patent.writer_id=writer.user_id
@@ -85,10 +85,9 @@
         and tb_status.status_content like  '%未通过'
     </select>
 
-    <!--通过专利id查询专利详情    于悦-->
     <select id="getPatentById" resultMap="TbPatentResultMap" parameterType="Integer">
         select
-        <include refid="Patent_Colum_List"/>
+        <include refid="Patent_Column_List"/>
         from tb_patent
         LEFT JOIN tb_plan on tb_plan.plan_id=tb_patent.plan_id
         LEFT JOIN tb_user as writer ON tb_patent.writer_id=writer.user_id
@@ -99,36 +98,41 @@
         </where>
     </select>
 
-    <!--于悦-->
     <sql id="selectDocumentList">
       doc_id, doc_type_id, doc_name, doc_address, upload_date, patent_id,doc_type_name
     </sql>
-
-    <!--用户通过专利id查询所有文件最新版本   于悦-->
+    <!--用户查询得到最新文件的id   于悦-->
+    <select id="selectLatestDocId" resultType="java.lang.String" parameterType="Integer">
+        select ids from (select GROUP_CONCAT(doc_id) as ids,upload_date,doc_type_id from tb_document where patent_id=#{patentId} GROUP BY upload_date ORDER BY upload_date DESC) b
+				group by doc_type_id
+    </select>
+    <!--用户查询得到最新文件   于悦-->
     <select id="selectLatestDocumentById" resultMap="DocumentResultMap" parameterType="Integer">
-        select doc_id,doc_name,doc_address,doc_type_id,upload_date,patent_id from tb_document
-        where doc_id in (
-            select SUBSTRING_INDEX(group_concat(doc_id order by `upload_date` desc),',',1) from tb_document
-            group by doc_type_id) and patent_id=#{patentId}
+        SELECT doc_id,doc_name,doc_address,doc_type_id,upload_date,patent_id from tb_document
+				      where doc_id in
+        <foreach  item="item" collection="ids" index="index"  open="(" separator="," close=")">
+            #{item}
+        </foreach>
   </select>
 
-    <!--管理员查询专利所有文件        于悦-->
+    <!--判断该专利是否存在    于悦-->
+    <select id="selectPatent"  resultType="com.xinghuo.pojo.TbPatent" parameterType="Integer">
+        select * from tb_patent where patent_id=#{patentId}
+    </select>
+
     <select id="selectAllDocumentById" resultMap="DocumentResultMap" parameterType="Integer">
     select doc_id, tb_document.doc_type_id as doc_type_id, doc_name, doc_address, upload_date, patent_id,doc_type_name
 from tb_document,tb_documentType
 where tb_document.doc_type_id=tb_documentType.doc_type_id and patent_id=#{patentId} ORDER BY doc_type_id ,upload_date DESC ;
   </select>
-    <!--通过专利id删除指标     于悦-->
     <delete id="deleteIndicatorsByPatentId" parameterType="Integer">
     delete from tb_indicator
     where patent_id = #{patentId,jdbcType=INTEGER}
   </delete>
 
-    <!--通过专利id修改专利进度  于悦-->
     <update id="updatePatentPlan" parameterType="com.xinghuo.pojo.TbPatent">
         update tb_patent set plan_id=#{planId,jdbcType=INTEGER} where patent_id=#{patentId,jdbcType=INTEGER}
     </update>
-    <!--专利返回类型     于悦-->
     <resultMap id="PatentsResultMap" type="com.xinghuo.pojo.TbPatent">
         <id column="patent_id" property="patentId" jdbcType="INTEGER"/>
         <result column="patent_name" property="patentName" jdbcType="VARCHAR"/>
@@ -199,7 +203,7 @@ where tb_document.doc_type_id=tb_documentType.doc_type_id and patent_id=#{patent
             AND tb_patent.patent_id = #{value}
         </where>
     </select>
-    <!--通过专利id插入指标     于悦-->
+
     <insert id="insertIndicatorsByPatentId" parameterType="com.xinghuo.pojo.TbIndicator">
         insert into `tb_indicator`
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -268,7 +272,6 @@ where tb_document.doc_type_id=tb_documentType.doc_type_id and patent_id=#{patent
             now()
         </trim>
     </insert>
-    <!--通过专利id修改专利信息          于悦-->
     <update id="updatePatentById" parameterType="com.xinghuo.pojo.TbPatent">
         update tb_patent
         <set>

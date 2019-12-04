@@ -11,14 +11,18 @@ import java.util.List;
  *@Author:段炼 on 2019/11/23 11:45
  *@param:
  *@return:
- *@description:查询用户所有专利、查询用户专利详情、认领状态改变
+ *@description:
  */
 @Mapper
 @Repository
-public interface UserPatentMapper {
-
+public interface TbUserPatentMapper {
+    /** 查询所有未认领专利**/
     Page<TbPatent> findAll();
+    /** 查询专利详情**/
     List<TbPatent> findDetail(Integer patentId);
+    /**确认专利状态**/
+    int state(Integer patentId);
+    /**更新专利状态 **/
     int update(TbPatent tbPatent);
 
 }

@@ -14,4 +14,13 @@ public interface TbUserService {
     List<TbUser> showAllUserService();
     //更改登陆状态  zhou_gc
     void updateLoginStatus(TbUser tbUser);
+
+    /**
+    *@Author:Yuyue
+    *@Description:验证是否有这个用户
+    *@Date:14:41  2019/12/3
+    *@Param:
+    *@Return:
+    */
+    Boolean selectUser(Integer userId);
 }

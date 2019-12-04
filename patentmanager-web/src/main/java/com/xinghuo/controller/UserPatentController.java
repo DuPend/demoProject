@@ -5,10 +5,7 @@ import com.xinghuo.pojo.PageInfo;
 import com.xinghuo.pojo.Result;
 import com.xinghuo.pojo.TbDocument;
 import com.xinghuo.pojo.TbPatent;
-import com.xinghuo.service.SearchService;
-import com.xinghuo.service.TbPlanService;
-import com.xinghuo.service.UploadFileService;
-import com.xinghuo.service.UserPatentService;
+import com.xinghuo.service.*;
 import com.xinghuo.target.Action;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -34,22 +31,29 @@ public class UserPatentController {
     private TbPlanService tbPlanService;
     @Autowired
     private HttpServletRequest httpServletRequest;
+    @Autowired
+    private TbUserService tbUserService;
+    @Autowired
+    private TbSearchService tbSearchService;
 
     /**
-     * @Author:Yuyue
-     * @Description:查询当前用户认领的专利列表
-     * @Date:21:06 2019/11/21
-     * @Param: * @param Integer userId
-     * @Return: 用户所有被认领的专利
-     */
+    *@Author:Yuyue
+    *@Description:查询当前用户认领的专利列表
+    *@Date:14:26  2019/12/3
+    *@Param:
+    *@Return: 用户所有被认领的专利
+    */
     @RequestMapping("UserPatent")
     public PageInfo<TbPatent> getPatentByUser(Integer userId,
-                                              @RequestParam(defaultValue = "1", value = "currentPage")int page,
-                                              @RequestParam(defaultValue = "10", value = "pageSize")int rows) {
-        Page<TbPatent> indicatorList = userPatentService.getPatentByUser(userId, page, rows);
-        PageInfo<TbPatent> pageInfo = new PageInfo<>(indicatorList);
-        return  pageInfo;
-
+                @RequestParam(defaultValue = "1", value = "currentPage")int page,
+                @RequestParam(defaultValue = "10", value = "pageSize")int rows) {
+        if (userId == null || page == 0 || rows == 0 || tbUserService.selectUser(userId) == null) {
+            return null;
+        } else {
+            Page<TbPatent> indicatorList = userPatentService.getPatentByUser(userId, page, rows);
+            PageInfo<TbPatent> pageInfo = new PageInfo<>(indicatorList);
+            return pageInfo;
+        }
     }
 
     /**
@@ -61,12 +65,15 @@ public class UserPatentController {
      */
     @GetMapping("FailPatent")
     public PageInfo<TbPatent> getFailPatentByUser(Integer userId,
-                                                  @RequestParam(defaultValue = "1", value = "currentPage")int page,
-                                                  @RequestParam(defaultValue = "10", value = "pageSize")int rows) {
-        /* int userId = Integer.valueOf((String)httpServletRequest.getParameter("userId"));*/
-        Page<TbPatent> indicatorList = userPatentService.getFailPatentByUser(userId, page, rows);
-        PageInfo<TbPatent> pageInfo = new PageInfo<>(indicatorList);
-        return  pageInfo;
+                                              @RequestParam(defaultValue = "1", value = "currentPage")int page,
+                                              @RequestParam(defaultValue = "10", value = "pageSize")int rows) {
+        if (userId == null || page == 0 || rows == 0 || tbUserService.selectUser(userId) == null) {
+            return null;
+        } else {
+            Page<TbPatent> indicatorList = userPatentService.getFailPatentByUser(userId, page, rows);
+            PageInfo<TbPatent> pageInfo = new PageInfo<>(indicatorList);
+            return pageInfo;
+        }
     }
 
     /**
@@ -79,6 +86,9 @@ public class UserPatentController {
     @RequestMapping("PatentDetail")
     public TbPatent getPatentById(Integer patentId) {
         /*System.out.println("dasdasadad"+userPatentService.getPatentById(patentId).toString());*/
+        if (patentId == null || !userPatentService.selectPatent(patentId)) {
+            return null;
+        }
         System.out.println(patentId);
         return userPatentService.getPatentById(patentId);
     }
@@ -93,6 +103,9 @@ public class UserPatentController {
     @RequestMapping("updatePatent")
     @Action(name = "change")
     public Result updatePatentById(@RequestBody TbPatent tbPatent) {
+        if (tbPatent == null || !userPatentService.selectPatent(tbPatent.getPatentId())) {
+            return new Result(false, "传递的参数有误！");
+        }
         System.out.println(tbPatent.toString());
         //获取session
         HttpSession httpSession = httpServletRequest.getSession();
@@ -116,21 +129,14 @@ public class UserPatentController {
         return result;
     }
 
-    /**
-     * 上传文件
-     * @param file   文件
-     * @param patentId  专利id
-     * @param typeId    类型id
-     * @param request
-     * @return
-     */
     @RequestMapping("uploadFile")
     @Action(name = "upfile")
-    Result uploadFile(@RequestBody MultipartFile file, Integer patentId, Integer typeId,
+    public Result uploadFile(@RequestBody MultipartFile[] files, Integer patentId, Integer typeId,
                       HttpServletRequest request) {
-        //上传文件
-        Result result1 = uploadFileService.uploadFile(file, patentId, typeId, request);
-
+        if(patentId == null || typeId ==null ||!userPatentService.selectPatent(patentId)) {
+            return new Result(false, "传递的参数有误！");
+        }
+        Result result1 = uploadFileService.uploadFiles(files,patentId,typeId,request);
         /*
          * @Author 姜爽
          * @Date 8:11 2019/11/28
@@ -165,7 +171,11 @@ public class UserPatentController {
      * @Param: 专利id
      * @Return: 返回文件list
      */
-    @RequestMapping("SelectLatestDocument") List<TbDocument> selectLatestDocumentById(Integer patentId) {
+    @RequestMapping("SelectLatestDocument")
+    List<TbDocument> selectLatestDocumentById(Integer patentId) {
+        if(patentId ==null || !userPatentService.selectPatent(patentId)) {
+            return null;
+        }
         return userPatentService.selectLatestDocumentById(patentId);
     }
 
@@ -177,33 +187,10 @@ public class UserPatentController {
      * @Return: 返回文件list
      */
     @RequestMapping("SelectAllDocument") List<TbDocument> selectAllDocumentById(Integer patentId) {
-        return userPatentService.selectAllDocumentById(patentId);
-
-    }
-
-    //修改
-
-    /**
-     * @Author:Yuyue
-     * @Description:修改专利的进度
-     * @Date:14:53 2019/11/24
-     * @Param: 应该修改为的专利进度id，专利id
-     * @Return:
-     */
-    public Result updatePatentPlan(Integer planId, Integer patentId) {
-        Result result = new Result(false, null);
-        TbPatent tbPatent = new TbPatent();
-        tbPatent.setPatentId(patentId);
-        tbPatent.setPlanId(planId);
-        try {
-            userPatentService.updatePatentPlan(tbPatent);
-            result.setSuccess(true);
-            result.setMessage("修改进度成功！");
-        } catch (Exception e) {
-            result.setSuccess(false);
-            result.setMessage("修改进度失败！" + e.getMessage());
+        if (patentId == null || !userPatentService.selectPatent(patentId)) {
+         return null;
         }
-        return result;
+        return userPatentService.selectAllDocumentById(patentId);
     }
 
     /**
@@ -214,17 +201,20 @@ public class UserPatentController {
      * @Return:
      */
     @RequestMapping("updateplan")
-        public Result updateBookPlan(Integer patentId, Integer planId) {
+        public Result updatePatentPlan(Integer patentId,Integer planId) {
+        if (patentId == null || planId == null || !userPatentService.selectPatent(patentId)) {
+            return new Result(false, "传递的参数有误！");
+        }
         Result result = new Result(false, null);
         try {
         TbPatent tbPatent = new TbPatent();
-        if(tbPlanService.findPlanByContent("新建专利").equals(planId)) {
+        if (tbPlanService.findPlanByContent("新建专利").equals(planId)) {
             tbPatent.setPatentId(patentId);
             tbPatent.setPlanId(tbPlanService.findPlanByContent("新建专利待审核"));
             userPatentService.updatePatentPlan(tbPatent);
             result.setSuccess(true);
             result.setMessage("修改进度成功");
-        }else if(tbPlanService.findPlanByContent("方案讨论中").equals(planId)){
+        } else if (tbPlanService.findPlanByContent("方案讨论中").equals(planId)){
             tbPatent.setPatentId(patentId);
             tbPatent.setPlanId(tbPlanService.findPlanByContent("交底书撰写中"));
             userPatentService.updatePatentPlan(tbPatent);
@@ -241,15 +231,14 @@ public class UserPatentController {
         return result;
     }
 
-    @Autowired
-    private SearchService searchService;
+
 
 
     /**
-     * @Author:DuanLian
-     * @Description:所有专利 controller
-     * @Date:14:53 2019/12/02
-     * @Param:
+     *@Author:duanlian
+     *@param:
+     *@return:
+     *@description:所有专利
      */
     @RequestMapping("/findAll")
     public PageInfo<TbPatent> findAll(
@@ -263,10 +252,10 @@ public class UserPatentController {
 
 
     /**
-     * @Author:DuanLian
-     * @Description:某专利的详细信息 controller
-     * @Date:14:53 2019/12/02
-     * @Param: Integer id
+     *@Author:duanlian
+     *@param:
+     *@return:
+     *@description:某专利的详细信息
      */
     @RequestMapping("/findDetail")
     public List<TbPatent> findDetail(Integer patentId) {
@@ -276,38 +265,42 @@ public class UserPatentController {
 
 
     /**
-     * @Author:DuanLian
-     * @Description:条件查询 controller
-     * @Date:14:53 2019/12/02
-     * @Param: TbPatent
+     *@Author:duanlian
+     *@param:
+     *@return:
+     *@description:条件查询
      */
     @RequestMapping("/findCondition")
     public List<TbPatent> findCondition(TbPatent patent) {
-        List<TbPatent> list = searchService.findCondition(patent);
+        List<TbPatent> list = tbSearchService.findCondition(patent);
         return list;
     }
 
 
     /**
-     * @Author:DuanLian
-     * @Description:认领状态的更改 controller
-     * @Date:14:53 2019/12/02
-     * @Param: tbPatent
+     *@Author:duanlian
+     *@param:
+     *@return:
+     *@description:认领状态
      */
     @RequestMapping("/updateCondition")
     @Action(name = "change")
     public Result update(@RequestBody TbPatent tbPatent) {
-        int result = userPatentService.update(tbPatent);
-        //获取session
-        HttpSession httpSession = httpServletRequest.getSession();
-        //获取当前专利的id
-        httpSession.setAttribute("patentId", tbPatent.getPatentId().toString());
-        if (result >= 1) {
-            return new Result(true, "修改成功");
+        int planId = userPatentService.state(tbPatent.getPatentId());
+        if (planId != 2) {
+            return new Result(false,"该专利已被认领，请刷新页面！");
         } else {
-            return new Result(false, "修改失败");
+            int result = userPatentService.update(tbPatent);
+            //获取session
+            HttpSession httpSession = httpServletRequest.getSession();
+            //获取当前专利的id
+            httpSession.setAttribute("patentId", tbPatent.getPatentId().toString());
+            if (result >= 1) {
+                return new Result(true, "修改成功");
+            } else {
+                return new Result(false, "修改失败");
+            }
         }
     }
-
 
 }

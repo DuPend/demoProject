@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 @Repository
@@ -79,7 +80,7 @@ public interface TbPatentMapper {
      *@Param:
      *@Return:
      */
-    List<TbDocument> selectLatestDocumentById(Integer patentId);
+    List<TbDocument> selectLatestDocumentById(Map<String, Object> map);
     /**
      *@Author:Yuyue
      *@Description:查询专利的所有文件
@@ -99,7 +100,23 @@ public interface TbPatentMapper {
     */
     void updatePatentPlan(TbPatent tbPatent);
 
+    /**
+    *@Author:Yuyue
+    *@Description:用户查询所有文件id
+    *@Date:12:03  2019/12/3
+    *@Param:
+    *@Return:
+    */
+    List<String> selectLatestDocId(Integer patentId);
 
+    /**
+    *@Author:Yuyue
+    *@Description:查询是否有该专利
+    *@Date:14:19  2019/12/3
+    *@Param:
+    *@Return:
+    */
+    TbPatent selectPatent(Integer patentId);
 
 
     //添加专利  刘建

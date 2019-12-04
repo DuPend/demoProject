@@ -16,11 +16,35 @@ import java.util.List;
 
 @Service
 public interface UserPatentService {
-    /*段炼*/
+    /**
+     *@Author:duanlian
+     *@param:
+     *@return:
+     *@description:查询专利所有
+     */
     Page<TbPatent> findAll(int page, int rows);
-    /*段炼*/
+
+    /**
+     *@Author:duanlian
+     *@param:
+     *@return:
+     *@description:查询专利详情
+     */
     List<TbPatent> findDetail(Integer patentId);
-    /*段炼*/
+
+    /**
+     *@Author:duanlian
+     *@param:
+     *@return:
+     *@description:更新前先确定专利状态
+     */
+    int state(Integer patentId);
+    /**
+     *@Author:duanlian
+     *@param:
+     *@return:
+     *@description:更新认领状态
+     */
     int update(TbPatent tbPatent);
 
     /**
@@ -30,6 +54,7 @@ public interface UserPatentService {
      * @param rows    一页显示多少条
      * @return  专利列表
      */
+
     Page<TbPatent> getPatentByUser(Integer userId, int page, int rows);
 
     /**
@@ -38,27 +63,11 @@ public interface UserPatentService {
      * @return   专利详情
      */
     TbPatent getPatentById(Integer patentId);
-
-    /**
-     * 修改专利
-     * @param tbPatent 专利对象
-     */
+    //于悦
     void  updatePatentById(TbPatent tbPatent);
-
-    /**
-     * 查询最新的专利
-     * @param patentId 专利id
-     * @return
-     */
+    //于悦
     List<TbDocument> selectLatestDocumentById(Integer patentId);
-
-    /**
-     * @Author:Yuyue
-     * @Description:管理员查询出所有当前专利的文件
-     * @Date:17:42 2019/11/22
-     * @Param: 专利id
-     * @Return: 返回文件list
-     */
+    //于悦
     List<TbDocument> selectAllDocumentById(Integer patentId);
     //修改
     /**
@@ -69,6 +78,16 @@ public interface UserPatentService {
      *@Return:
      */
     void updatePatentPlan(TbPatent tbPatent);
+
+    /**
+     *@Author:Yuyue
+     *@Description:查询是否有该专利
+     *@Date:14:19  2019/12/3
+     *@Param:
+     *@Return:
+     */
+    Boolean selectPatent(Integer patentId);
+
     //添加专利   liujian
     void addPatent(TbPatent tbPatent);
 

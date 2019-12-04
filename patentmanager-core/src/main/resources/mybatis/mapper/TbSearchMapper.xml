@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.xinghuo.mapper.SearchMapper">
+<mapper namespace="com.xinghuo.mapper.TbSearchMapper">
 
     <resultMap id="SearchResultMap" type="com.xinghuo.pojo.TbPatent">
         <id column="patent_id" property="patentId" jdbcType="INTEGER"/>
