@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xinghuo.mapper.AdminPatentMapper">
+
+    <!--=====================================zhou_gc  begin=====================================-->
+
+    <resultMap id="AdminPatentResultMap" type="com.xinghuo.pojo.TbPatent">
+        <id column="patent_id" property="patentId" jdbcType="INTEGER"/>
+        <result column="batch" property="batch" jdbcType="VARCHAR"/>
+        <result column="patent_name" property="patentName" jdbcType="VARCHAR"/>
+        <result column="case_number" property="caseNumber" jdbcType="VARCHAR"/>
+        <result column="propose_number" property="proposeNumber" jdbcType="VARCHAR"/>
+        <result column="proposer_name" property="proposerName" jdbcType="VARCHAR"/>
+        <result column="law_status" property="lawStatus" jdbcType="VARCHAR"/>
+        <result column="patent_type" property="patentType" jdbcType="VARCHAR"/>
+        <result column="inventor_name" property="inventorName" jdbcType="VARCHAR"/>
+        <result column="propose_date" property="proposeDate" jdbcType="DATE"/>
+        <result column="technical_contact" property="technicalContact" jdbcType="VARCHAR"/>
+        <result column="creator_id" property="creatorId" jdbcType="INTEGER"/>
+        <result column="creator_name" property="creatorName" jdbcType="VARCHAR"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+        <association property="writer" javaType="TbUser">
+            <id column="wuser_id" property="userId" jdbcType="INTEGER"/>
+            <result column="wuser_name" property="userName" jdbcType="VARCHAR"/>
+            <result column="wpassword" property="password" jdbcType="VARCHAR"/>
+            <result column="wrole" property="role" jdbcType="INTEGER"/>
+        </association>
+        <association property="creator" javaType="TbUser">
+            <id column="cuser_id" property="userId" jdbcType="INTEGER"/>
+            <result column="cuser_name" property="userName" jdbcType="VARCHAR"/>
+            <result column="cpassword" property="password" jdbcType="VARCHAR"/>
+            <result column="crole" property="role" jdbcType="INTEGER"/>
+        </association>
+        <association property="tbPlan" javaType="TbPlan">
+            <id column="plan_id" property="planId" jdbcType="INTEGER"/>
+            <result column="plan_content" property="planContent" jdbcType="VARCHAR"/>
+        </association>
+        <collection property="tbIndicators" javaType="java.util.ArrayList" ofType="com.xinghuo.pojo.TbIndicator">
+            <id column="ind_id" property="indId" jdbcType="INTEGER"/>
+            <result column="ind_details" property="indDetails" jdbcType="VARCHAR"/>
+            <result column="tbpatent_id" property="patentId" jdbcType="INTEGER"/>
+        </collection>
+
+    </resultMap>
+
+    <!--============================zhou_gc  end==========================================-->
+
+    <resultMap id="findDetailResultMap" type="com.xinghuo.pojo.TbDetail">
+        <id column="patent_id" property="patentId" jdbcType="INTEGER"/>
+        <result column="batch" property="batch" jdbcType="VARCHAR"/>
+        <result column="patent_name" property="patentName" jdbcType="VARCHAR"/>
+        <result column="case_number" property="caseNumber" jdbcType="VARCHAR"/>
+        <result column="propose_number" property="proposeNumber" jdbcType="VARCHAR"/>
+        <result column="proposer_name" property="proposerName" jdbcType="VARCHAR"/>
+        <result column="law_status" property="lawStatus" jdbcType="VARCHAR"/>
+        <result column="patent_type" property="patentType" jdbcType="VARCHAR"/>
+        <result column="inventor_name" property="inventorName" jdbcType="VARCHAR"/>
+        <result column="propose_date" property="proposeDate" jdbcType="TIMESTAMP"/>
+        <result column="technical_contact" property="technicalContact" jdbcType="VARCHAR"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+
+        <association property="creator" javaType="TbUser">
+            <id column="user_id" property="userId" jdbcType="INTEGER"/>
+            <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+            <result column="password" property="password" jdbcType="VARCHAR"/>
+            <result column="role" property="role" jdbcType="INTEGER"/>
+        </association>
+
+
+        <association property="tbPlan" javaType="TbPlan">
+            <id column="plan_id" property="planId" jdbcType="INTEGER"/>
+            <result column="plan_content" property="planContent" jdbcType="VARCHAR"/>
+        </association>
+
+        <association property="tbFlow" javaType="tbFlow">
+            <id column="flow_id" property="flowId" jdbcType="INTEGER"/>
+            <result column="edit_selectioin" property="editSelectioin" jdbcType="VARCHAR"/>
+            <result column="edit_user" property="editUser" jdbcType="VARCHAR"/>
+            <result column="flow_date" property="flowDate" jdbcType="TIMESTAMP"/>
+            <result column="patent_id" property="patentId" jdbcType="INTEGER"/>
+        </association>
+
+    </resultMap>
+
+
+    <resultMap id="selectAllMap" type="com.xinghuo.pojo.TbPatent">
+        <id column="patent_id" property="patentId" jdbcType="INTEGER"/>
+        <result column="batch" property="batch" jdbcType="VARCHAR"/>
+        <result column="patent_name" property="patentName" jdbcType="VARCHAR"/>
+        <result column="case_number" property="caseNumber" jdbcType="VARCHAR"/>
+        <result column="propose_number" property="proposeNumber" jdbcType="VARCHAR"/>
+        <result column="proposer_name" property="proposerName" jdbcType="VARCHAR"/>
+        <result column="law_status" property="lawStatus" jdbcType="VARCHAR"/>
+        <result column="patent_type" property="patentType" jdbcType="VARCHAR"/>
+        <result column="inventor_name" property="inventorName" jdbcType="VARCHAR"/>
+        <result column="propose_date" property="proposeDate" jdbcType="TIMESTAMP"/>
+        <result column="technical_contact" property="technicalContact" jdbcType="VARCHAR"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+
+
+        <association property="creator" javaType="TbUser">
+            <id column="user_id" property="userId" jdbcType="INTEGER"/>
+            <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+            <result column="password" property="password" jdbcType="VARCHAR"/>
+            <result column="role" property="role" jdbcType="INTEGER"/>
+        </association>
+
+
+        <association property="tbPlan" javaType="TbPlan">
+            <id column="plan_id" property="planId" jdbcType="INTEGER"/>
+            <result column="plan_content" property="planContent" jdbcType="VARCHAR"/>
+        </association>
+
+    </resultMap>
+
+
+
+    <sql id="Column_List">
+        p.patent_id,p.patent_name,p.case_number,p.propose_number,p.propose_date,p.inventor_name,
+        plan.plan_content,u.user_name
+
+
+    </sql>
+
+    <sql id="Column_ListDetail">
+                p.patent_id,
+				p.batch,
+				p.patent_name,
+				p.case_number,
+				p.propose_number,
+				p.proposer_name,
+				p.law_status,
+				p.patent_type,
+				p.inventor_name,
+				p.propose_date,
+				p.technical_contact,
+				p.remark,
+                plan.plan_content,
+				u.user_name,
+				f.flow_id,
+				f.edit_selectioin,
+				f.edit_user,
+				f.flow_date
+
+    </sql>
+
+
+
+    <!--根据id查询所有数据、进度  plan patent flow-->
+    <select id="adminDetail" resultMap="findDetailResultMap" >
+        select <include refid="Column_ListDetail" />
+        FROM  tb_patent as p,
+        tb_plan as plan,
+        tb_user as u,
+        tb_flow as f
+        where
+        p.plan_id = plan.plan_id and
+        p.creator_id = u.user_id and
+        p.patent_id = f.patent_id
+        and p.patent_id = #{id}
+       /* AND plan.plan_id>1 ORDER BY plan.plan_id ASC;*/
+    </select>
+
+
+<!--管理员查询所有的专利-->
+    <select id="selectAll" resultMap="selectAllMap">
+    <!--    SELECT  <include refid="Column_List" />
+        FROM  tb_patent as p,tb_plan as plan,tb_user as u
+        where p.plan_id = plan.plan_id and p.creator_id = u.user_id-->
+
+        SELECT  <include refid="Column_List" />
+        FROM tb_plan as plan,tb_patent as p left join tb_user as u on p.writer_id  = u.user_id
+        where p.plan_id = plan.plan_id
+         ORDER BY plan.plan_id ASC
+    </select>
+
+    <!--==============================zhou_gc   begin=================================================-->
+
+        <!--zhou_gc  管理员多条件查询所有专利映射集-->
+    <resultMap id="PatentsResultMap" type="com.xinghuo.pojo.TbPatent">
+        <id column="patent_id" property="patentId" jdbcType="INTEGER"/>
+        <result column="patent_name" property="patentName" jdbcType="VARCHAR"/>
+        <result column="case_number" property="caseNumber" jdbcType="VARCHAR"/>
+        <result column="propose_number" property="proposeNumber" jdbcType="VARCHAR"/>
+        <result column="propose_date" property="proposeDate" jdbcType="DATE"/>
+        <result column="inventor_name" property="inventorName" jdbcType="VARCHAR"/>
+
+        <association property="writer" javaType="com.xinghuo.pojo.TbUser">
+            <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        </association>
+
+        <association property="tbPlan" javaType="com.xinghuo.pojo.TbPlan">
+            <result column="plan_content" property="planContent" jdbcType="VARCHAR"/>
+        </association>
+    </resultMap>
+    <!--zhou_gc  根据多条件查询相关专利，未被认领的专利在上方显示-->
+    <select id="getPatentList" parameterType="com.xinghuo.pojo.TbPatent" resultMap="PatentsResultMap">
+
+        SELECT
+        patent_id,
+        patent_name ,case_number,
+        propose_number,propose_date,
+        inventor_name,
+        tb_user.user_name,tb_plan.plan_content
+        FROM
+        tb_patent LEFT JOIN tb_user
+        ON tb_patent.writer_id=tb_user.user_id
+        LEFT JOIN tb_plan ON tb_patent.plan_id=tb_plan.plan_id
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            <if test="patentName != null and patentName != ''">
+                AND patent_name = #{patentName,jdbcType=VARCHAR}
+            </if>
+            <if test="caseNumber != null and caseNumber != ''">
+                AND case_number = #{caseNumber,jdbcType=VARCHAR}
+            </if>
+            <if test="proposeNumber != null and proposeNumber != ''">
+                AND propose_number = #{proposeNumber,jdbcType=VARCHAR}
+            </if>
+            <if test="proposeDate != null">
+                AND propose_date = #{proposeDate,jdbcType=DATE}
+            </if>
+            <if test="inventorName != null and inventorName != ''">
+                AND inventor_name = #{inventorName,jdbcType=VARCHAR}
+            </if>
+            <if test="planId != null and planId != ''">
+                AND tb_plan.plan_id = #{planId,jdbcType=INTEGER}
+            </if>
+
+
+
+        </trim>
+
+    </select>
+
+
+        <!--====================zhou_gc  管理员查询专利详情=========================-->
+    <select id="getPatentByPatentId" parameterType="INTEGER" resultMap="AdminPatentResultMap">
+        SELECT
+        tb_patent.patent_id,tb_patent.batch,tb_patent.patent_name,tb_patent.case_number,tb_patent.propose_number,tb_patent.proposer_name,tb_patent.law_status,tb_patent.patent_type,tb_patent.inventor_name,
+        tb_patent.propose_date,tb_patent.technical_contact,tb_patent.remark,tb_user.user_name AS
+        cuser_name,tb_user1.user_name AS wuser_name ,tb_plan.plan_content,tb_indicator.ind_details
+        FROM
+        tb_patent
+        LEFT JOIN tb_plan ON tb_patent.plan_id=tb_plan.plan_id
+        LEFT JOIN tb_user ON tb_patent.creator_id=tb_user.user_id
+        LEFT JOIN tb_user AS tb_user1 ON tb_patent.writer_id=tb_user1.user_id
+        LEFT JOIN tb_indicator ON tb_patent.patent_id=tb_indicator.patent_id
+        <where>
+            AND tb_patent.patent_id = #{value}
+        </where>
+    </select>
+
+
+
+    <!--===============================zhou_gc  end================================================-->
+
+
+
+
+</mapper>

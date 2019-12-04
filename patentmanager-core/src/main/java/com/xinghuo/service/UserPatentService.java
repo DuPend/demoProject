@@ -16,16 +16,52 @@ import java.util.List;
 
 @Service
 public interface UserPatentService {
-    /*段炼*/
+    /**
+     *@Author:duanlian
+     *@param:
+     *@return:
+     *@description:查询专利所有
+     */
     Page<TbPatent> findAll(int page, int rows);
-    /*段炼*/
+
+    /**
+     *@Author:duanlian
+     *@param:
+     *@return:
+     *@description:查询专利详情
+     */
     List<TbPatent> findDetail(Integer patentId);
-    /*段炼*/
+
+    /**
+     *@Author:duanlian
+     *@param:
+     *@return:
+     *@description:更新前先确定专利状态
+     */
+    int state(Integer patentId);
+    /**
+     *@Author:duanlian
+     *@param:
+     *@return:
+     *@description:更新认领状态
+     */
     int update(TbPatent tbPatent);
 
-    //于悦
+    /**
+     * 查询用户被认领的专利
+     * @param userId   用户id
+     * @param page    当前页
+     * @param rows    一页显示多少条
+     * @return  专利列表
+     */
+
     Page<TbPatent> getPatentByUser(Integer userId, int page, int rows);
-    //于悦
+
+    /**
+     * 专利详情
+     * @param patentId 专利id
+     * @return   专利详情
+     */
     TbPatent getPatentById(Integer patentId);
     //于悦
     void  updatePatentById(TbPatent tbPatent);

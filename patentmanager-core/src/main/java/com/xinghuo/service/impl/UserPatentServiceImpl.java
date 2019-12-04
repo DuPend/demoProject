@@ -31,7 +31,12 @@ import java.util.Map;
 //    @Autowired
 //    private RedisTemplate<String, Object> redisTemplate;
 
-    //段炼
+    /**
+     *@Author:duanlian
+     *@param:
+     *@return:
+     *@description:所有专利
+     */
     @Override
     public Page<TbPatent> findAll(int pageNum, int pageSize) {
 
@@ -45,18 +50,41 @@ import java.util.Map;
 
 
     }
-    //段炼
+    /**
+     *@Author:duanlian
+     *@param:
+     *@return:
+     *@description:某专利的详细信息
+     */
     @Override
-    public List<TbPatent> findDetail(Integer id) {
+    public List<TbPatent> findDetail(Integer patentId) {
 
-        List<TbPatent> list = tbUserPatentMapper.findDetail(id);
+        List<TbPatent> list = tbUserPatentMapper.findDetail(patentId);
         return list;
     }
-    //段炼
+
+    /**
+     *@Author:duanlian
+     *@param:
+     *@return:
+     *@description:更新前先确定专利状态
+     */
+    @Override public int state(Integer patentId) {
+        int planId = tbUserPatentMapper.state(patentId);
+        return planId;
+    }
+    /**
+     *@Author:duanlian
+     *@param:
+     *@return:
+     *@description:认领状态
+     */
     @Override
     public int update(TbPatent tbPatent) {
         return tbUserPatentMapper.update(tbPatent);
     }
+
+
 
     /**
      * @Author:Yuyue

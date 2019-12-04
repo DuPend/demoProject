@@ -19,18 +19,17 @@ public class TbUserServiceImpl implements TbUserService {
     }
 
     @Override
-    public int updateUserService(TbUser tbUser) {
-        return tbUserMapper.updateUser(tbUser);
-    }
-
-    @Override
-    public TbUser showUserByNameService(String userName) {
-        return tbUserMapper.showUserByName(userName);
+    public TbUser userLogin(TbUser tbUser) {
+        return tbUserMapper.showUserByNameAndPassword(tbUser);
     }
 
     @Override
     public List<TbUser> showAllUserService() {
         return tbUserMapper.showAllUser();
+    }
+
+    @Override public void updateLoginStatus(TbUser tbUser) {
+          tbUserMapper.updateUser(tbUser);
     }
 
     @Override

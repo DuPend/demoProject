@@ -38,8 +38,10 @@ subprojects {
     version = '1.0.0-SNAPSHOT' // 设置版本
     group = 'com.suixingpay.cloud' // 设置group id
     description = '随行付Spring cloud 实现' // 设置描述
-
+    
     dependencies {
+        // 添加jwt zhou_gc
+        compile group: 'com.auth0', name: 'java-jwt', version: '3.8.0'
         compileOnly('org.springframework.boot:spring-boot-configuration-processor')
         compileOnly('org.projectlombok:lombok')
         testCompile('org.projectlombok:lombok')

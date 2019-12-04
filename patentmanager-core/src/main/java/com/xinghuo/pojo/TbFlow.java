@@ -23,6 +23,8 @@ public class TbFlow {
 
     private Integer flag;
 
+
+
     public TbFlow() {
 
     }
@@ -80,5 +82,13 @@ public class TbFlow {
 
     public void setPatentId(Integer patentId) {
         this.patentId = patentId;
+    }
+
+    public Integer getFlag() {
+        return flag;
+    }
+
+    public void setFlag(Integer flag) {
+        this.flag = flag;
     }
 }

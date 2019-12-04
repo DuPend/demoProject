@@ -237,7 +237,13 @@ public class UserPatentController {
 
 
 
-    //所有专利 段炼
+
+    /**
+     *@Author:duanlian
+     *@param:
+     *@return:
+     *@description:所有专利
+     */
     @RequestMapping("/findAll")
     public PageInfo<TbPatent> findAll(
             @RequestParam(defaultValue = "1", value = "currentPage")int page,
@@ -248,35 +254,57 @@ public class UserPatentController {
 
     }
 
-    //某专利的详细信息 段炼
+
+    /**
+     *@Author:duanlian
+     *@param:
+     *@return:
+     *@description:某专利的详细信息
+     */
     @RequestMapping("/findDetail")
-    public List<TbPatent> findDetail(Integer id) {
-        List<TbPatent> list = userPatentService.findDetail(id);
+    public List<TbPatent> findDetail(Integer patentId) {
+        List<TbPatent> list = userPatentService.findDetail(patentId);
         return list;
     }
 
-    //条件查询 段炼
+
+    /**
+     *@Author:duanlian
+     *@param:
+     *@return:
+     *@description:条件查询
+     */
     @RequestMapping("/findCondition")
     public List<TbPatent> findCondition(TbPatent patent) {
         List<TbPatent> list = tbSearchService.findCondition(patent);
         return list;
     }
 
-    //认领状态  段炼
+
+    /**
+     *@Author:duanlian
+     *@param:
+     *@return:
+     *@description:认领状态
+     */
     @RequestMapping("/updateCondition")
     @Action(name = "change")
     public Result update(@RequestBody TbPatent tbPatent) {
-        int result = userPatentService.update(tbPatent);
-        //获取session
-        HttpSession httpSession = httpServletRequest.getSession();
-        //获取当前专利的id
-        httpSession.setAttribute("patentId", tbPatent.getPatentId().toString());
-        if (result >= 1) {
-            return new Result(true, "修改成功");
+        int planId = userPatentService.state(tbPatent.getPatentId());
+        if (planId != 2) {
+            return new Result(false,"该专利已被认领，请刷新页面！");
         } else {
-            return new Result(false, "修改失败");
+            int result = userPatentService.update(tbPatent);
+            //获取session
+            HttpSession httpSession = httpServletRequest.getSession();
+            //获取当前专利的id
+            httpSession.setAttribute("patentId", tbPatent.getPatentId().toString());
+            if (result >= 1) {
+                return new Result(true, "修改成功");
+            } else {
+                return new Result(false, "修改失败");
+            }
         }
     }
-
 
 }

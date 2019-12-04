@@ -6,18 +6,17 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
-//@Configuration
+@Configuration
 public class WebMvcConfig extends WebMvcConfigurationSupport {
 
     @Autowired
     private MyHandlerIntercepter myHandlerIntercepter;
 
 
-
+    /*zhou_gc  不拦截登陆页面*/
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        //.excludePathPatterns("/adminExport");
-        registry.addInterceptor(myHandlerIntercepter).addPathPatterns("/**").excludePathPatterns("/logincheck");
+        registry.addInterceptor(myHandlerIntercepter).addPathPatterns("/**").excludePathPatterns("/userlogin");
     }
 
 }

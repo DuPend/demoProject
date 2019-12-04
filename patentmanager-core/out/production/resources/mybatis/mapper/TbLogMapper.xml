@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xinghuo.mapper.TbLogMapper">
+    <resultMap id="TbLogResultMap" type="com.xinghuo.pojo.TbLog">
+        <id column="log_id" property="logId" jdbcType="INTEGER"/>
+        <result column="log_name" property="logName" jdbcType="VARCHAR"/>
+        <result column="log_address" property="logAddress" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Log_Colum_List">
+    log_id , log_name , log_address
+  </sql>
+    <insert id="addLog" parameterType="com.xinghuo.pojo.TbLog">
+        insert into tb_log (log_name, log_address) values (#{logName}, #{logAddress})
+    </insert>
+
+    <select id="selectLogByName" parameterType="java.lang.String" resultType="com.xinghuo.pojo.TbLog">
+        SELECT
+        <include refid="Log_Colum_List"/>
+        from tb_log
+        <if test="_parameter != null">
+            where log_name = #{logName ,jdbcType=VARCHAR}
+        </if>
+
+    </select>
+
+    <select id="selectAllLog" parameterType="String" resultType="com.xinghuo.pojo.TbLog">
+        SELECT
+        <include refid="Log_Colum_List"/>
+        from tb_log
+    </select>
+</mapper>

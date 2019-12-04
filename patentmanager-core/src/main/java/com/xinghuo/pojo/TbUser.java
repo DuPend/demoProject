@@ -9,7 +9,7 @@ public class TbUser {
     private String password;
     /**权限**/
     private Integer role;
-
+    /*登陆状态*/
     private String loginStatus;
 
     public String getLoginStatus() {
