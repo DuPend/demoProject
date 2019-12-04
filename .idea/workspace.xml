@@ -1,34 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1922af28-e9e7-47aa-8d1a-ba90b7611246" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patentmanager-core/src/main/java/com/xinghuo/pojo/DataSignEnum.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patentmanager-core/src/main/java/com/xinghuo/pojo/DateFormatUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patentmanager-core/src/main/java/com/xinghuo/pojo/ResponseMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patentmanager-core/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/patentmanager-core/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patentmanager-core/src/main/java/com/xinghuo/mapper/SearchMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/patentmanager-core/src/main/java/com/xinghuo/mapper/TbSearchMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patentmanager-core/src/main/java/com/xinghuo/mapper/TbPatentMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/patentmanager-core/src/main/java/com/xinghuo/mapper/TbPatentMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patentmanager-core/src/main/java/com/xinghuo/mapper/TbUserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/patentmanager-core/src/main/java/com/xinghuo/mapper/TbUserMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patentmanager-core/src/main/java/com/xinghuo/mapper/UserPatentMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/patentmanager-core/src/main/java/com/xinghuo/mapper/TbUserPatentMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patentmanager-core/src/main/java/com/xinghuo/service/SearchService.java" beforeDir="false" afterPath="$PROJECT_DIR$/patentmanager-core/src/main/java/com/xinghuo/service/TbSearchService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patentmanager-core/src/main/java/com/xinghuo/service/TbUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/patentmanager-core/src/main/java/com/xinghuo/service/TbUserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patentmanager-core/src/main/java/com/xinghuo/service/UploadFileService.java" beforeDir="false" afterPath="$PROJECT_DIR$/patentmanager-core/src/main/java/com/xinghuo/service/UploadFileService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patentmanager-core/src/main/java/com/xinghuo/service/UserPatentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/patentmanager-core/src/main/java/com/xinghuo/service/UserPatentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patentmanager-core/src/main/java/com/xinghuo/service/impl/SearchServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/patentmanager-core/src/main/java/com/xinghuo/service/impl/TbSearchServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patentmanager-core/src/main/java/com/xinghuo/service/impl/TbExportServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/patentmanager-core/src/main/java/com/xinghuo/service/impl/TbExportServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patentmanager-core/src/main/java/com/xinghuo/service/impl/TbUserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/patentmanager-core/src/main/java/com/xinghuo/service/impl/TbUserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patentmanager-core/src/main/java/com/xinghuo/service/impl/UploadFileServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/patentmanager-core/src/main/java/com/xinghuo/service/impl/UploadFileServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patentmanager-core/src/main/java/com/xinghuo/service/impl/UserPatentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/patentmanager-core/src/main/java/com/xinghuo/service/impl/UserPatentServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patentmanager-core/src/main/resources/mybatis/mapper/SearchMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/patentmanager-core/src/main/resources/mybatis/mapper/TbSearchMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patentmanager-core/src/main/resources/mybatis/mapper/TbPatentMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/patentmanager-core/src/main/resources/mybatis/mapper/TbPatentMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patentmanager-core/src/main/resources/mybatis/mapper/TbUserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/patentmanager-core/src/main/resources/mybatis/mapper/TbUserMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patentmanager-core/src/main/resources/mybatis/mapper/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/patentmanager-core/src/main/resources/mybatis/mapper/TbUserPatentMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patentmanager-web/build/classes/java/main/com/xinghuo/aspect/ManipulerAspect.class" beforeDir="false" afterPath="$PROJECT_DIR$/patentmanager-web/build/classes/java/main/com/xinghuo/aspect/ManipulerAspect.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patentmanager-web/build/classes/java/main/com/xinghuo/controller/LoginController.class" beforeDir="false" afterPath="$PROJECT_DIR$/patentmanager-web/build/classes/java/main/com/xinghuo/controller/LoginController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patentmanager-web/src/main/java/com/xinghuo/PatentmanagerApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/patentmanager-web/src/main/java/com/xinghuo/PatentmanagerApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patentmanager-web/src/main/java/com/xinghuo/aspect/ManipulerAspect.java" beforeDir="false" afterPath="$PROJECT_DIR$/patentmanager-web/src/main/java/com/xinghuo/aspect/ManipulerAspect.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patentmanager-web/src/main/java/com/xinghuo/controller/UserPatentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/patentmanager-web/src/main/java/com/xinghuo/controller/UserPatentController.java" afterDir="false" />
+    <list default="true" id="1922af28-e9e7-47aa-8d1a-ba90b7611246" name="Default Changelist" comment="用户更新操作，使用responseMessage，返回相应信息。duanlian">
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patentmanager-core/out/production/resources/mybatis/mapper/SearchMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/patentmanager-core/out/production/resources/mybatis/mapper/TbPatentMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/patentmanager-core/out/production/resources/mybatis/mapper/TbPatentMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patentmanager-core/out/production/resources/mybatis/mapper/TbUserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/patentmanager-core/out/production/resources/mybatis/mapper/TbUserMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patentmanager-core/out/production/resources/mybatis/mapper/UserMapper.xml" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/build/" />
     <ignored path="$PROJECT_DIR$/patentmanager-common/.gradle/" />
@@ -37,6 +21,12 @@
     <ignored path="$PROJECT_DIR$/patentmanager-core/out/" />
     <ignored path="$PROJECT_DIR$/patentmanager-web/.gradle/" />
     <ignored path="$PROJECT_DIR$/patentmanager-web/out/" />
+    <ignored path="$PROJECT_DIR$/out/" />
+    <ignored path="$PROJECT_DIR$/.gradle/" />
+    <ignored path="$PROJECT_DIR$/patentmanager-common/build/" />
+    <ignored path="$PROJECT_DIR$/patentmanager-core/build/" />
+    <ignored path="$PROJECT_DIR$/patentmanager-web/build/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -50,13 +40,57 @@
       <ProjectState />
     </projectState>
   </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="demoProject" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/patentmanager-common/src/main/java/com/xinghuo/common/utils/TokenUtil.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="30" column="23" lean-forward="true" selection-start-line="30" selection-start-column="23" selection-end-line="30" selection-end-column="23" />
+            <state relative-caret-position="-367">
+              <caret line="30" column="23" selection-start-line="30" selection-start-column="23" selection-end-line="30" selection-end-column="23" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/patentmanager-web/src/main/java/com/xinghuo/PatentmanagerApplication.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="114">
+              <caret line="11" column="14" selection-start-line="11" selection-start-column="14" selection-end-line="11" selection-end-column="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/patentmanager-core/src/main/java/com/xinghuo/pojo/ResponseMessage.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="944">
+              <caret line="299" column="34" selection-start-line="299" selection-start-column="34" selection-end-line="299" selection-end-column="34" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/patentmanager-web/src/main/java/com/xinghuo/controller/UserPatentController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="115">
+              <caret line="257" column="7" lean-forward="true" selection-start-line="257" selection-start-column="7" selection-end-line="257" selection-end-column="7" />
             </state>
           </provider>
         </entry>
@@ -70,15 +104,22 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/patentmanager-core/src/main/resources/mybatis/mapper/TbUserMapper.xml" />
+        <option value="$PROJECT_DIR$/patentmanager-core/src/main/java/com/xinghuo/pojo/DataSignEnum.java" />
+        <option value="$PROJECT_DIR$/patentmanager-web/src/main/java/com/xinghuo/controller/UserPatentController.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-10" />
     <option name="width" value="1935" />
     <option name="height" value="1025" />
@@ -88,6 +129,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -98,74 +140,6 @@
             <path>
               <item name="demoProject" type="b2602c69:ProjectViewProjectNode" />
               <item name="demoProject" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="patentmanager-common" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-            </path>
-            <path>
-              <item name="demoProject" type="b2602c69:ProjectViewProjectNode" />
-              <item name="demoProject" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="patentmanager-common" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="demoProject" type="b2602c69:ProjectViewProjectNode" />
-              <item name="demoProject" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="patentmanager-common" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-            </path>
-            <path>
-              <item name="demoProject" type="b2602c69:ProjectViewProjectNode" />
-              <item name="demoProject" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="patentmanager-common" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="demoProject" type="b2602c69:ProjectViewProjectNode" />
-              <item name="demoProject" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="patentmanager-common" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="demoProject" type="b2602c69:ProjectViewProjectNode" />
-              <item name="demoProject" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="patentmanager-common" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="xinghuo" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="demoProject" type="b2602c69:ProjectViewProjectNode" />
-              <item name="demoProject" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="patentmanager-common" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="xinghuo" type="462c0819:PsiDirectoryNode" />
-              <item name="common" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="demoProject" type="b2602c69:ProjectViewProjectNode" />
-              <item name="demoProject" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="patentmanager-common" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="xinghuo" type="462c0819:PsiDirectoryNode" />
-              <item name="common" type="462c0819:PsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="demoProject" type="b2602c69:ProjectViewProjectNode" />
-              <item name="demoProject" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="patentmanager-core" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
             </path>
             <path>
@@ -196,16 +170,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="demoProject" type="b2602c69:ProjectViewProjectNode" />
-              <item name="demoProject" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="patentmanager-core" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
               <item name="xinghuo" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -215,9 +179,8 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
               <item name="xinghuo" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
+              <item name="pojo" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="demoProject" type="b2602c69:ProjectViewProjectNode" />
@@ -252,16 +215,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="demoProject" type="b2602c69:ProjectViewProjectNode" />
-              <item name="demoProject" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="patentmanager-web" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
               <item name="xinghuo" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -271,18 +224,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="xinghuo" type="462c0819:PsiDirectoryNode" />
-              <item name="aspect" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="demoProject" type="b2602c69:ProjectViewProjectNode" />
-              <item name="demoProject" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="patentmanager-web" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
               <item name="xinghuo" type="462c0819:PsiDirectoryNode" />
               <item name="controller" type="462c0819:PsiDirectoryNode" />
             </path>
@@ -290,7 +231,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -302,7 +242,13 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="RequestMappingsPanelWidth2" value="75" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="settings.editor.selected.configurable" value="settings.github" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1575451945505" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="Errors" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -316,7 +262,20 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Spring Boot.PatentmanagerApplication (1)">
+    <configuration name="PatentmanagerApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="com.suixingpay.cloud.patentmanager-web.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.xinghuo.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.xinghuo.PatentmanagerApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="PatentmanagerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="demoProject.patentmanager-web.main" />
       <extension name="coverage">
@@ -332,6 +291,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Spring Boot.PatentmanagerApplication (1)" />
         <item itemvalue="Spring Boot.PatentmanagerApplication" />
       </list>
     </recent_temporary>
@@ -347,14 +307,30 @@
       <option name="project" value="LOCAL" />
       <updated>1575439600142</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1922af28-e9e7-47aa-8d1a-ba90b7611246" name="Default Changelist" comment="" />
+      <created>1575448789662</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1575448789662</updated>
+      <workItem from="1575448799666" duration="3041000" />
+    </task>
+    <task id="LOCAL-00002" summary="用户更新操作，使用responseMessage，返回相应信息。duanlian">
+      <created>1575451242575</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1575451242575</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2252000" />
+    <option name="totallyTimeSpent" value="5293000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="0" width="1548" height="820" extended-state="0" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Designer" order="0" />
       <window_info id="Image Layers" order="1" />
@@ -362,20 +338,20 @@
       <window_info id="UI Designer" order="3" />
       <window_info id="Favorites" order="4" side_tool="true" />
       <window_info id="Web" order="5" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="6" visible="true" weight="0.22885907" />
+      <window_info content_ui="combo" id="Project" order="6" visible="true" weight="0.23190348" />
       <window_info id="Structure" order="7" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Messages" order="0" weight="0.3298193" />
-      <window_info anchor="bottom" id="Build" order="1" />
+      <window_info anchor="bottom" id="Messages" order="0" weight="0.3286119" />
+      <window_info anchor="bottom" id="Build" order="1" weight="0.32152975" />
       <window_info anchor="bottom" id="Spring" order="2" />
       <window_info anchor="bottom" id="Terminal" order="3" />
       <window_info anchor="bottom" id="Docker" order="4" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="5" side_tool="true" />
       <window_info anchor="bottom" id="Java Enterprise" order="6" />
       <window_info anchor="bottom" id="Database Changes" order="7" />
-      <window_info anchor="bottom" id="Version Control" order="8" visible="true" weight="0.30421686" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="8" visible="true" weight="0.39660057" />
       <window_info anchor="bottom" id="Message" order="9" />
       <window_info anchor="bottom" id="Find" order="10" />
-      <window_info anchor="bottom" id="Run" order="11" weight="0.5557229" />
+      <window_info anchor="bottom" id="Run" order="11" weight="0.36260623" />
       <window_info anchor="bottom" id="Debug" order="12" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="13" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="14" weight="0.4" />
@@ -385,7 +361,7 @@
       <window_info anchor="right" id="Maven" order="0" />
       <window_info anchor="right" id="Palette" order="1" />
       <window_info anchor="right" id="Capture Analysis" order="2" />
-      <window_info anchor="right" id="Gradle" order="3" weight="0.12483221" />
+      <window_info anchor="right" id="Gradle" order="3" weight="0.1689008" />
       <window_info anchor="right" id="Database" order="4" />
       <window_info anchor="right" id="Palette&#9;" order="5" />
       <window_info anchor="right" id="Theme Preview" order="6" />
@@ -434,10 +410,40 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="10" weight="0.25" />
     </layout-to-restore>
   </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="zhou_gc token 第一次" />
     <MESSAGE value="zhou_gc token 删除workspace.xml" />
-    <option name="LAST_COMMIT_MESSAGE" value="zhou_gc token 删除workspace.xml" />
+    <MESSAGE value="用户更新操作，使用responseMessage，返回相应信息。duanlian" />
+    <option name="LAST_COMMIT_MESSAGE" value="用户更新操作，使用responseMessage，返回相应信息。duanlian" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/patentmanager-web/src/main/java/com/xinghuo/aspect/ManipulerAspect.java">
@@ -454,19 +460,134 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/zhou_gc.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/patentmanager-web/src/main/java/com/xinghuo/PatentmanagerApplication.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="16" column="44" lean-forward="true" selection-start-line="16" selection-start-column="44" selection-end-line="16" selection-end-column="44" />
+        <state relative-caret-position="114">
+          <caret line="11" column="14" selection-start-line="11" selection-start-column="14" selection-end-line="11" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/patentmanager-core/src/main/java/com/xinghuo/pojo/DateFormatUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1553">
+          <caret line="29" column="22" selection-start-line="29" selection-start-column="22" selection-end-line="29" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/patentmanager-core/src/main/java/com/xinghuo/pojo/PageInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="157">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/patentmanager-common/src/main/java/com/xinghuo/common/utils/TokenUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="30" column="23" lean-forward="true" selection-start-line="30" selection-start-column="23" selection-end-line="30" selection-end-column="23" />
+        <state relative-caret-position="-367">
+          <caret line="30" column="23" selection-start-line="30" selection-start-column="23" selection-end-line="30" selection-end-column="23" />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/patentmanager-core/src/main/java/com/xinghuo/pojo/ResponseMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="944">
+          <caret line="299" column="34" selection-start-line="299" selection-start-column="34" selection-end-line="299" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/patentmanager-core/src/main/java/com/xinghuo/pojo/DataSignEnum.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="181">
+          <caret line="31" column="44" lean-forward="true" selection-start-line="31" selection-start-column="44" selection-end-line="31" selection-end-column="44" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/patentmanager-web/src/main/java/com/xinghuo/controller/UserPatentController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="257" column="7" lean-forward="true" selection-start-line="257" selection-start-column="7" selection-end-line="257" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>No facets are configured</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>demoProject</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.6" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
   </component>
 </project>
