@@ -93,31 +93,31 @@ public class ResponseMessage implements Serializable {
         return map;
     }
 
-    protected ResponseMessage(String message) {
+    public ResponseMessage(String message) {
         this.code = 500;
         this.message = message;
         this.success = false;
     }
 
-    protected ResponseMessage(boolean success, Object data) {
+    public ResponseMessage(boolean success, Object data) {
         this.code = success ? 200 : 500;
         this.data = data;
         this.success = success;
     }
 
-    protected ResponseMessage(boolean success, Object data, DataSignEnum dataSign) {
+    public ResponseMessage(boolean success, Object data, DataSignEnum dataSign) {
         this.code = success ? 200 : 500;
         this.data = data;
         this.success = success;
         this.dataSign = dataSign;
     }
 
-    protected ResponseMessage(boolean success, Object data, int code) {
+    public ResponseMessage(boolean success, Object data, int code) {
         this(success, data);
         this.code = code;
     }
 
-    protected ResponseMessage(boolean success, Object data, int code, DataSignEnum dataSign) {
+    public ResponseMessage(boolean success, Object data, int code, DataSignEnum dataSign) {
         this(success, data);
         this.code = code;
         this.dataSign = dataSign;
@@ -223,7 +223,7 @@ public class ResponseMessage implements Serializable {
         return include(Arrays.asList(fields));
     }
 
-    protected Set<String> getStringListFormMap(Map<Class<?>, Set<String>> map, Class<?> type) {
+    public Set<String> getStringListFormMap(Map<Class<?>, Set<String>> map, Class<?> type) {
         Set<String> list = map.get(type);
         if (list == null) {
             list = new HashSet<>();
@@ -315,6 +315,9 @@ public class ResponseMessage implements Serializable {
 
     public static ResponseMessage error(String message) {
         return new ResponseMessage(message);
+    }
+    public static ResponseMessage paramError() {
+        return new ResponseMessage("传递的参数有误！");
     }
 
     public static ResponseMessage error(String message, int code) {
