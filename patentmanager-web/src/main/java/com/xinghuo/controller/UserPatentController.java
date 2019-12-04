@@ -1,10 +1,7 @@
 package com.xinghuo.controller;
 
 import com.github.pagehelper.Page;
-import com.xinghuo.pojo.PageInfo;
-import com.xinghuo.pojo.Result;
-import com.xinghuo.pojo.TbDocument;
-import com.xinghuo.pojo.TbPatent;
+import com.xinghuo.pojo.*;
 import com.xinghuo.service.*;
 import com.xinghuo.target.Action;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -260,6 +257,7 @@ public class UserPatentController {
     @RequestMapping("/findDetail")
     public List<TbPatent> findDetail(Integer patentId) {
         List<TbPatent> list = userPatentService.findDetail(patentId);
+
         return list;
     }
 
@@ -285,10 +283,11 @@ public class UserPatentController {
      */
     @RequestMapping("/updateCondition")
     @Action(name = "change")
-    public Result update(@RequestBody TbPatent tbPatent) {
+    public ResponseMessage update(@RequestBody TbPatent tbPatent) {
         int planId = userPatentService.state(tbPatent.getPatentId());
         if (planId != 2) {
-            return new Result(false,"该专利已被认领，请刷新页面！");
+
+            return  ResponseMessage.error("该专利已被认领，请刷新页面",500);
         } else {
             int result = userPatentService.update(tbPatent);
             //获取session
@@ -296,9 +295,10 @@ public class UserPatentController {
             //获取当前专利的id
             httpSession.setAttribute("patentId", tbPatent.getPatentId().toString());
             if (result >= 1) {
-                return new Result(true, "修改成功");
+               /**修改成功**/
+                return  ResponseMessage.ok(200);
             } else {
-                return new Result(false, "修改失败");
+                return ResponseMessage.error("修改失败",500);
             }
         }
     }
