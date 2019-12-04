@@ -1,7 +1,10 @@
 package com.xinghuo.controller;
 
+import com.xinghuo.common.utils.TokenUtil;
 import com.xinghuo.pojo.TbUser;
 import com.xinghuo.service.TbUserService;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,56 +12,101 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 
 /**
- * @Author 姜爽
- * @Date 8:11 2019/11/28
- * @Description  登陆
- */
+ * @Author zhou_gc
+ * @Date 2019/12/3
+ * @Description  登陆重构 使用token实现单点登陆
+*/
 @Controller
 public class LoginController {
 
+    private  final String  QTERROR="前台数据有误";
+    private  final String CANNOTLOGINAGAIN="您已经登陆不可重复登陆";
+    private final String   OK="success";
+    private final String NOUSER="当前用户不存在";
+
     @Autowired
     private TbUserService tbUserService;
-    @RequestMapping("/logincheck")
+
+    /**
+     *@描述 用户登陆
+     *@参数  [tbUser]
+     *@返回值   map  封装响应状态信息 若是成功则会返回token 以及用户本体
+     *@创建人  zhou_gc@suixingpay.com
+     *@创建时间  2019/12/3
+     *@修改人和其它信息
+     */
+    @RequestMapping("/userlogin")
     @ResponseBody
-    public TbUser loginCheckController(@RequestBody TbUser tbUser, HttpServletRequest request) {
+    public Map<String,Object> loginCheckController(@RequestBody TbUser tbUser,HttpServletRequest request) throws JSONException {
+        Map<String,Object> map=new HashMap();
         if(     tbUser==null
                 ||(tbUser.getUserName()==null||"".equals(tbUser.getUserName()))
                 ||(tbUser.getPassword()==null||"".equals(tbUser.getPassword()))
-                ||(tbUser.getRole()==null||"".equals(tbUser.getRole()))
-        )
-            return null;
-       /* Map<String,Object> objectMap=(HashMap<String,Object>)request.getSession().getAttribute("user");
-        //若是用户已经登录则拒绝重复登录,在此处认为username是唯一值
-        if(objectMap != null && objectMap.get(tbUser.getUserName()) != null) return null;*/
-
-
-        TbUser tempUser = tbUserService.showUserByNameService(tbUser.getUserName());
-
-        if(tempUser==null) return null;
-
-        if(!tempUser.getPassword().equals(tbUser.getPassword())) return null;
-
-        request.getSession().setAttribute("user",tempUser);
-
-        /*if(objectMap != null){
-            objectMap.put(tbUser.getUserName(),tempUser);
-        }else{
-            Map<String,Object> objectMaptmp=new HashMap<>();
-            objectMaptmp.put(tbUser.getUserName(),tempUser);
-            request.getSession().setAttribute("user",objectMaptmp);
-        }*/
-        return tempUser;
-    }
-    @RequestMapping("/changePass")
-    @ResponseBody
-    public String changePassword(@RequestBody TbUser tbUser) {
-        int result = tbUserService.updateUserService(tbUser);
-        if (result > 0) {
-            return "success";
-        } else {
-            return "false";
+          ){
+              map.put("message",QTERROR);
+              return map;
         }
+
+        if(request.getHeader("token") != null){
+            map.put("message",CANNOTLOGINAGAIN);
+            return map;
+        }
+        TbUser tempUser = tbUserService.userLogin(tbUser);
+        if(tempUser == null){
+            map.put("message",NOUSER);
+            return map;
+        }
+        if( "1".equals(tempUser.getLoginStatus())){
+            map.put("message",CANNOTLOGINAGAIN);
+            return map;
+        }
+        tempUser.setLoginStatus("1");
+        tbUserService.updateLoginStatus(tempUser);
+        Map<String,String> claims=new HashMap<>();
+        claims.put("username",tempUser.getUserName());
+        claims.put("userid",tempUser.getUserId().toString());
+        String token=TokenUtil.getToken(claims,50000000L);//50000s
+        //String token=TokenUtil.getToken(claims,10000L);//10s
+        map.put("token",token);
+        map.put("tbUser",tempUser);
+        map.put("message",OK);
+        return map;
     }
+
+    /**
+     *@描述 用户注销登陆
+     *@参数
+     *@返回值
+     *@创建人  zhou_gc@suixingpay.com
+     *@创建时间  2019/12/4
+     *@修改人和其它信息
+     */
+    @RequestMapping("userloginout")
+    @ResponseBody
+    public String userLoginOutController(HttpServletRequest request){
+              String token = request.getHeader("token");
+        Map<String,String> map = null;
+        try {
+            map = TokenUtil.verifyToken(token);
+        } catch (Exception e) {
+            return "token_no_use";
+        }
+        String username = map.get("username");
+              String userid = map.get("userid");
+              if(username == null || "".equals(username) ||userid == null || "".equals(userid)){
+                  throw new RuntimeException("token内容被篡改");
+              }
+              TbUser tempUser =new TbUser();
+              tempUser.setUserId(Integer.valueOf(userid));
+              tempUser.setUserName(username);
+              tempUser.setLoginStatus("0");
+              tbUserService.updateLoginStatus(tempUser);
+              return  "successLoginOut";
+    }
+
 }
