@@ -129,14 +129,15 @@ public class UserPatentController {
         return result;
     }
 
-    @RequestMapping("uploadFile")
+    @PostMapping(value="uploadFile")
     @Action(name = "upfile")
-    public Result uploadFile(@RequestBody MultipartFile[] files, Integer patentId, Integer typeId,
+    public @ResponseBody Result uploadFile(@RequestParam("files") MultipartFile[] files, Integer patentId, Integer typeId,
                       HttpServletRequest request) {
-        if(patentId == null || typeId ==null ||!userPatentService.selectPatent(patentId)) {
+        if (files != null && files.length >0) {
+            if(patentId == null || typeId ==null ||userPatentService.selectPatent(patentId)==false) {
             return new Result(false, "传递的参数有误！");
         }
-        Result result1 = uploadFileService.uploadFiles(files,patentId,typeId,request);
+       Result result1 = uploadFileService.uploadFiles(files,patentId,typeId,request);
         /*
          * @Author 姜爽
          * @Date 8:11 2019/11/28
@@ -154,13 +155,16 @@ public class UserPatentController {
             Result result2 = null;
             if (tbPlanService.findPlanByContent("交底书撰写中") == planId) {
                 //修改进度为第一次审核;
-                result2 = updatePatentPlan(tbPlanService.findPlanByContent("第一次审核"), patentId);
+                result2 = updatePatentPlan(patentId,tbPlanService.findPlanByContent("第一次审核"));
             } else {
                 result2 = new Result(true, "上传该文件,不需要修改进度!");
             }
             return result2;
         } else {
             return result1;
+        }
+        }else {
+            return new Result(false,"文件为空");
         }
     }
 
@@ -221,7 +225,7 @@ public class UserPatentController {
             result.setSuccess(true);
             result.setMessage("修改进度成功");
         }else{
-            result.setSuccess(false);
+            result.setSuccess(true);
             result.setMessage("当前进度无法手动修改！" );
         }
         } catch (Exception e) {

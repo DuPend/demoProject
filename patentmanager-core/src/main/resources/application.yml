@@ -15,7 +15,10 @@ mybatis:
 spring:
   application:
     name: microservicec loud-dept
-
+  http:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 200MB
   #mysql配置
   datasource :
     #当前数据源操作类型

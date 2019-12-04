@@ -249,7 +249,9 @@ where tb_document.doc_type_id=tb_documentType.doc_type_id and patent_id=#{patent
             <if test="patentId != null or patentId == 0">
                 `patent_id`,
             </if>
-            `upload_date`
+            <if test="uploadDate != null or patentId == 0">
+                `upload_date`
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="docId != null or docId == 0">
@@ -269,7 +271,9 @@ where tb_document.doc_type_id=tb_documentType.doc_type_id and patent_id=#{patent
             <if test="patentId != null or patentId == 0">
                 #{patentId,jdbcType=INTEGER},
             </if>
-            now()
+            <if test="uploadDate != null or patentId == 0">
+                #{uploadDate}
+            </if>
         </trim>
     </insert>
     <update id="updatePatentById" parameterType="com.xinghuo.pojo.TbPatent">

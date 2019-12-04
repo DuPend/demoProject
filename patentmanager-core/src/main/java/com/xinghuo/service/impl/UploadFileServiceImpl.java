@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -38,6 +39,8 @@ public class UploadFileServiceImpl implements UploadFileService {
     private String downfile; //下載文件時的ip路徑
     @Value("${savepath}")
     private String savepath; //服務器上的文件實際存儲位置
+    @Value("${spring.http.multipart.max-file-size}")
+    private String FILESIZE;
 
     /**
      * @Author:Yuyue
@@ -46,7 +49,7 @@ public class UploadFileServiceImpl implements UploadFileService {
      * @Param: Integer patentId,Integer typeId,String docName,String docAddress
      * @Return:
      */
-    public Result addFile(Integer patentId, Integer typeId, String docName, String docAddress) {
+    public Result addFile(Integer patentId, Integer typeId, String docName, String docAddress,Date date) {
         Result result = new Result(false, null);
         TbDocument tbDocument = new TbDocument();
         TbDocumentType tbDocumentType = new TbDocumentType();
@@ -55,39 +58,48 @@ public class UploadFileServiceImpl implements UploadFileService {
         tbDocument.setDocName(docName);
         tbDocument.setDocAddress(docAddress);
         tbDocument.setPatentId(patentId);
+        tbDocument.setUploadDate(date);
         try {
             patentMapper.addFile(tbDocument);
             result.setSuccess(true);
             result.setMessage("上传文件成功!");
         } catch (Exception e) {
             result.setSuccess(false);
-            result.setMessage("上传文件失败" + e.getMessage());
+            result.setMessage("上传文件失败:" + e.getMessage());
         }
         return result;
     }
 
 
 
-    @Transactional
+    @Transactional(propagation= Propagation.REQUIRED,rollbackFor = Exception.class)
     @Override
     public Result uploadFiles(MultipartFile[] files, Integer patentId, Integer typeId, HttpServletRequest request) {
         if (null != files && files.length > 0) {
             Date date = new Date();
-            Result result=new Result(false,null);
+            Result result=null;
             for (MultipartFile file : files) {
-                String fileName = file.getOriginalFilename();
-                String suffixName = fileName.substring(fileName.lastIndexOf("."));
-                if (".doc".equals(suffixName) || ".docx".equals(suffixName) ||
-                        ".pdf".equals(suffixName) || ".zip".equals(suffixName) || ".md".equals(suffixName)) {
+                Integer fileSize = Integer.valueOf(FILESIZE.substring(0, FILESIZE.lastIndexOf("MB"))) * 1024*1024;
+                System.out.println(file.getSize() + "------");
+                if (file.getSize() <= fileSize) {
+                    String fileName = file.getOriginalFilename();
+                    System.out.println("file.length" + file.getSize());
+                    String suffixName = fileName.substring(fileName.lastIndexOf("."));
+                    if (".doc".equals(suffixName) || ".docx".equals(suffixName) || ".pdf".equals(suffixName) || ".zip".equals(suffixName) || ".md".equals(suffixName)) {
                         result = uploadFile(file, patentId, typeId, date, request);
-                       if (!result.isSuccess()) {
-                           throw  new RuntimeException("上传文件失败！");
-                       }
-                } else {
-                    return new Result(false,"上传的文件中有不允许上传的文件类型！");
+                        if (!result.isSuccess()) {
+                            return new Result(false, "上传失败！");
+                            /*throw  new RuntimeException("上传文件失败，回滚！");*/
+                        }
+                    } else {
+                        /*throw  new RuntimeException("上传文件失败,文件类型错误，回滚！");*/
+                        return new Result(false, "上传的文件中有不允许上传的文件类型！");
+                    }
+                }else {
+                    return new Result(false,"上传的文件太大！");
                 }
             }
-            return new Result(true,"文件上传成功！");
+            return new Result(true, "文件上传成功！");
         } else {
             return new Result(false,"上传的文件为空！");
         }
@@ -109,11 +121,11 @@ public class UploadFileServiceImpl implements UploadFileService {
         String str  =  format.format(dateName);
         fileName = fileName + "-" + str + suffixName;
         int size = (int) file.getSize();
-        String path = savepath + "upfile/" + fileName;
+       /* String path = savepath + "upfile/" + fileName;*/
         String url = downfile + "upfile/" + fileName;
 
         String projectUrl = request.getSession().getServletContext().getRealPath("/");
-       /* String path=projectUrl+"/"+fileName;*/
+        String path=projectUrl+"/"+fileName;
         File dest = new File(path);
         System.out.println(downfile);
         System.out.println("url:" + url);
@@ -137,6 +149,6 @@ public class UploadFileServiceImpl implements UploadFileService {
             result.setSuccess(false);
             return result;
         }
-        return addFile(patentId, typeId, fileName, url);
+        return addFile(patentId, typeId, fileName, url,date);
     }
 }
