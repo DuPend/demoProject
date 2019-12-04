@@ -116,7 +116,7 @@
   </select>
 
     <!--判断该专利是否存在    于悦-->
-    <select id="selectPatent"  resultType="com.xinghuo.pojo.TbPatent" parameterType="Integer">
+    <select id="selectPatent" resultType="com.xinghuo.pojo.TbPatent" parameterType="Integer">
         select * from tb_patent where patent_id=#{patentId}
     </select>
 

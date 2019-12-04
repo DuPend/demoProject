@@ -43,16 +43,19 @@ public class UserPatentController {
     *@Return: 用户所有被认领的专利
     */
     @RequestMapping("UserPatent")
-    public PageInfo<TbPatent> getPatentByUser(Integer userId,
-                @RequestParam(defaultValue = "1", value = "currentPage")int page,
-                @RequestParam(defaultValue = "10", value = "pageSize")int rows) {
+    public PageInfo<TbPatent> getPatentByUser(@RequestParam(defaultValue = "1", value = "currentPage")int page,
+                                                @RequestParam(defaultValue = "10", value = "pageSize")int rows,HttpServletRequest request)
+            throws Exception {
+        //通过token获取userId
+        String token=request.getHeader("token");
+        Map<String,String> map= TokenUtil.verifyToken(token);
+        Integer userId = Integer.valueOf(map.get("userid"));
         if (userId == null || page == 0 || rows == 0 || tbUserService.selectUser(userId) == null) {
             return null;
-        } else {
+        }
             Page<TbPatent> indicatorList = userPatentService.getPatentByUser(userId, page, rows);
             PageInfo<TbPatent> pageInfo = new PageInfo<>(indicatorList);
             return pageInfo;
-        }
     }
 
     /**
@@ -63,9 +66,13 @@ public class UserPatentController {
      * @Return:
      */
     @GetMapping("FailPatent")
-    public PageInfo<TbPatent> getFailPatentByUser(Integer userId,
+    public PageInfo<TbPatent> getFailPatentByUser(
                                               @RequestParam(defaultValue = "1", value = "currentPage")int page,
-                                              @RequestParam(defaultValue = "10", value = "pageSize")int rows) {
+                                              @RequestParam(defaultValue = "10", value = "pageSize")int rows,HttpServletRequest request)
+            throws Exception {
+        String token=request.getHeader("token");
+        Map<String,String> map= TokenUtil.verifyToken(token);
+        Integer userId = Integer.valueOf(map.get("userid"));
         if (userId == null || page == 0 || rows == 0 || tbUserService.selectUser(userId) == null) {
             return null;
         } else {
@@ -83,13 +90,12 @@ public class UserPatentController {
      * @Return:
      */
     @RequestMapping("PatentDetail")
-    public TbPatent getPatentById(Integer patentId) {
+    public ResponseMessage getPatentById(Integer patentId) {
         /*System.out.println("dasdasadad"+userPatentService.getPatentById(patentId).toString());*/
         if (patentId == null || !userPatentService.selectPatent(patentId)) {
-            return null;
+            return ResponseMessage.paramError();
         }
-        System.out.println(patentId);
-        return userPatentService.getPatentById(patentId);
+        return ResponseMessage.ok(userPatentService.getPatentById(patentId));
     }
 
     /**
@@ -101,42 +107,38 @@ public class UserPatentController {
      */
     @RequestMapping("updatePatent")
     @Action(name = "change")
-    public Result updatePatentById(@RequestBody TbPatent tbPatent) {
+    public ResponseMessage updatePatentById(@RequestBody TbPatent tbPatent) {
         if (tbPatent == null || !userPatentService.selectPatent(tbPatent.getPatentId())) {
-            return new Result(false, "传递的参数有误！");
+            return ResponseMessage.paramError();
         }
-        System.out.println(tbPatent.toString());
         //获取session
         HttpSession httpSession = httpServletRequest.getSession();
         //获取当前专利的id
         httpSession.setAttribute("patentId", tbPatent.getPatentId().toString());
         System.out.println(tbPatent.getPatentId());
-        Result result = new Result(false, null);
         if (tbPatent.getPatentId() != null) {
             try {
                 userPatentService.updatePatentById(tbPatent);
-                result.setSuccess(true);
-                result.setMessage("修改成功！");
+                return ResponseMessage.ok();
             } catch (Exception e) {
-                result.setSuccess(false);
-                result.setMessage("修改失败!");
+                return ResponseMessage.error("修改失败！");
             }
         } else {
-            result.setSuccess(false);
-            result.setMessage("修改失败,专利id为空!");
+            return ResponseMessage.error("修改失败！");
         }
-        return result;
     }
 
     @PostMapping(value="uploadFile")
     @Action(name = "upfile")
-    public @ResponseBody Result uploadFile(@RequestParam("files") MultipartFile[] files, Integer patentId, Integer typeId,
+    public @ResponseBody ResponseMessage uploadFile(@RequestParam("files") MultipartFile[] files, Integer patentId, Integer typeId,
                       HttpServletRequest request) {
-        if (files != null && files.length >0) {
-            if(patentId == null || typeId ==null ||userPatentService.selectPatent(patentId)==false) {
-            return new Result(false, "传递的参数有误！");
+        if (files == null || files.length <=0) {
+            return ResponseMessage.error( "文件为空");
         }
-       Result result1 = uploadFileService.uploadFiles(files,patentId,typeId,request);
+            if(patentId == null || typeId ==null || !userPatentService.selectPatent(patentId)) {
+                return ResponseMessage.paramError();
+        }
+       ResponseMessage responseMessage = uploadFileService.uploadFiles(files,patentId,typeId,request);
         /*
          * @Author 姜爽
          * @Date 8:11 2019/11/28
@@ -147,24 +149,21 @@ public class UserPatentController {
         //获取当前专利的id
         httpSession.setAttribute("patentId", patentId.toString());
         //如果上传成功
-        if (result1.isSuccess()) {
+        if (responseMessage.isSuccess()) {
             //根据patentID查询当前进度
             int planId = userPatentService.findPatentById(patentId).getPlanId();
             //如果当前进度为交底书撰写中
-            Result result2 = null;
-            if (tbPlanService.findPlanByContent("交底书撰写中") == planId) {
+            if (typeId == 1 && tbPlanService.findPlanByContent("交底书撰写中") == planId) {
                 //修改进度为第一次审核;
-                result2 = updatePatentPlan(patentId,tbPlanService.findPlanByContent("第一次审核"));
+                return updatePatentPlan(patentId,planId);
             } else {
-                result2 = new Result(true, "上传该文件,不需要修改进度!");
+                return ResponseMessage.ok();
             }
-            return result2;
+
         } else {
-            return result1;
+            return responseMessage;
         }
-        }else {
-            return new Result(false,"文件为空");
-        }
+
     }
 
     /**
@@ -200,38 +199,37 @@ public class UserPatentController {
      * @Author:Yuyue
      * @Description:修改专利的进度
      * @Date:14:53 2019/11/24
-     * @Param: 应该修改为的专利进度id，专利id
+     * @Param: 当前专利进度id，专利id
      * @Return:
      */
     @RequestMapping("updateplan")
-        public Result updatePatentPlan(Integer patentId,Integer planId) {
+        public ResponseMessage updatePatentPlan(Integer patentId,Integer planId) {
         if (patentId == null || planId == null || !userPatentService.selectPatent(patentId)) {
-            return new Result(false, "传递的参数有误！");
+            return ResponseMessage.paramError();
         }
-        Result result = new Result(false, null);
         try {
         TbPatent tbPatent = new TbPatent();
         if (tbPlanService.findPlanByContent("新建专利").equals(planId)) {
             tbPatent.setPatentId(patentId);
             tbPatent.setPlanId(tbPlanService.findPlanByContent("新建专利待审核"));
             userPatentService.updatePatentPlan(tbPatent);
-            result.setSuccess(true);
-            result.setMessage("修改进度成功");
+            return ResponseMessage.ok();
         } else if (tbPlanService.findPlanByContent("方案讨论中").equals(planId)){
             tbPatent.setPatentId(patentId);
             tbPatent.setPlanId(tbPlanService.findPlanByContent("交底书撰写中"));
             userPatentService.updatePatentPlan(tbPatent);
-            result.setSuccess(true);
-            result.setMessage("修改进度成功");
+            return ResponseMessage.ok();
+        }else if (tbPlanService.findPlanByContent("交底书撰写中").equals(planId)){
+            tbPatent.setPatentId(patentId);
+            tbPatent.setPlanId(tbPlanService.findPlanByContent("第一次审核"));
+            userPatentService.updatePatentPlan(tbPatent);
+            return ResponseMessage.ok();
         }else{
-            result.setSuccess(true);
-            result.setMessage("当前进度无法手动修改！" );
+            return ResponseMessage.error("当前进度无法手动修改！" );
         }
         } catch (Exception e) {
-            result.setSuccess(false);
-            result.setMessage("修改进度失败！");
+            return ResponseMessage.error("修改进度失败！");
         }
-        return result;
     }
 
 
