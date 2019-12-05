@@ -46,8 +46,6 @@ public class ResponseMessage implements Serializable {
      */
     private Object data;
 
-    /** 数据标识. */
-    private DataSignEnum dataSign;
 
     /**
      * 反馈信息
@@ -105,23 +103,12 @@ public class ResponseMessage implements Serializable {
         this.success = success;
     }
 
-    protected ResponseMessage(boolean success, Object data, DataSignEnum dataSign) {
-        this.code = success ? 200 : 500;
-        this.data = data;
-        this.success = success;
-        this.dataSign = dataSign;
-    }
 
     protected ResponseMessage(boolean success, Object data, int code) {
         this(success, data);
         this.code = code;
     }
 
-    protected ResponseMessage(boolean success, Object data, int code, DataSignEnum dataSign) {
-        this(success, data);
-        this.code = code;
-        this.dataSign = dataSign;
-    }
 
     public ResponseMessage include(Class<?> type, String... fields) {
         return include(type, Arrays.asList(fields));
@@ -301,17 +288,11 @@ public class ResponseMessage implements Serializable {
         return new ResponseMessage(true, data);
     }
 
-    public static ResponseMessage ok(Object data, DataSignEnum sign) {
-        return new ResponseMessage(true, data, sign);
-    }
 
     public static ResponseMessage created(Object data) {
         return new ResponseMessage(true, data, 201);
     }
 
-    public static ResponseMessage created(Object data, DataSignEnum sign) {
-        return new ResponseMessage(true, data, 201, sign);
-    }
 
     public static ResponseMessage error(String message) {
         return new ResponseMessage(message);
@@ -333,12 +314,6 @@ public class ResponseMessage implements Serializable {
         this.message = message;
     }
 
-    public DataSignEnum getDataSign() {
-        return dataSign;
-    }
 
-    public void setDataSign(DataSignEnum dataSign) {
-        this.dataSign = dataSign;
-    }
 
 }
