@@ -1,10 +1,10 @@
 package com.xinghuo.handlerinterceptor;
 
 
+import com.xinghuo.common.utils.RedisUtil;
 import com.xinghuo.common.utils.TokenUtil;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -25,16 +25,16 @@ public class MyHandlerIntercepter implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
-        System.out.println("拦截器运行。。。。。。。。。。。。。。。");
        String token = request.getHeader("token");
        if(token == null) return false;
        try {
            Map<String,String> map = TokenUtil.verifyToken(token);
-           String username = map.get("username");
-           if(username == null || "".equals(username)) return false;
+           /*判断当前redis中的此用户是否处于登陆状态 否则 则强制重新登陆*/
+           if(!RedisUtil.hasKey(map.get("username")))  return false;
+           /*token验证成功后将token中的信息封装到request域中*/
+           request.setAttribute("request_parameters",map);
        }catch (Exception e){
-           System.out.println("拦截器拦截到token失效");
-            returnJson(response,"no_token_use");
+            returnJson(response,"no_token_use");//用户需要重新登陆
            return false;
        }
 

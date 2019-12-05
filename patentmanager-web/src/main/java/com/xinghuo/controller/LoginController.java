@@ -1,10 +1,10 @@
 package com.xinghuo.controller;
 
+import com.xinghuo.common.utils.RedisUtil;
 import com.xinghuo.common.utils.TokenUtil;
 import com.xinghuo.pojo.TbUser;
 import com.xinghuo.service.TbUserService;
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 
 /**
@@ -28,7 +27,7 @@ public class LoginController {
     private  final String CANNOTLOGINAGAIN="您已经登陆不可重复登陆";
     private final String   OK="success";
     private final String NOUSER="当前用户不存在";
-
+    private  final  Long TOKEN_TIME=900000L;//token 过期时间为15分钟
     @Autowired
     private TbUserService tbUserService;
 
@@ -40,7 +39,7 @@ public class LoginController {
      *@创建时间  2019/12/3
      *@修改人和其它信息
      */
-    @RequestMapping("/userlogin")
+   /* @RequestMapping("/userlogin")
     @ResponseBody
     public Map<String,Object> loginCheckController(@RequestBody TbUser tbUser,HttpServletRequest request) throws JSONException {
         Map<String,Object> map=new HashMap();
@@ -75,6 +74,42 @@ public class LoginController {
         map.put("token",token);
         map.put("tbUser",tempUser);
         map.put("message",OK);
+        return map;
+    }*/
+    @RequestMapping("/userlogin")
+    @ResponseBody
+    public Map<String,Object> loginCheckController(@RequestBody TbUser tbUser,HttpServletRequest request) throws JSONException {
+        Map<String,Object> map = new HashMap();
+        if(     tbUser==null
+                ||(tbUser.getUserName()==null||"".equals(tbUser.getUserName()))
+                ||(tbUser.getPassword()==null||"".equals(tbUser.getPassword()))
+        ){
+            map.put("message",QTERROR);
+            return map;
+        }
+        String token_header=request.getHeader("token");
+        if( token_header == "undefined" && "undefined".equals(token_header)){
+            map.put("message",CANNOTLOGINAGAIN);
+            return map;
+        }
+        /*在redis数据库中判断当前用户是否已经登陆*/
+        if(RedisUtil.hasKey(tbUser.getUserName())){
+            map.put("message",CANNOTLOGINAGAIN);
+        }
+        TbUser tempUser = tbUserService.userLogin(tbUser);
+        if(tempUser == null){
+            map.put("message",NOUSER);
+            return map;
+        }
+        Map<String,String> claims=new HashMap<>();
+        claims.put("username",tempUser.getUserName());
+        claims.put("userid",tempUser.getUserId().toString());
+        String token=TokenUtil.getToken(claims,TOKEN_TIME);
+        /*向redis中添加用户唯一性标志位  设置过期时间和token过期时间保持一致 即使不一致也没问题，不过在间隙时间内用户无法登陆*/
+        RedisUtil.set(tempUser.getUserName(),token,TOKEN_TIME);
+        map.put("token",token);
+        map.put("message",OK);
+
         return map;
     }
 
