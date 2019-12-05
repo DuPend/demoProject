@@ -121,27 +121,14 @@ public class LoginController {
      *@创建时间  2019/12/4
      *@修改人和其它信息
      */
-    @RequestMapping("userloginout")
+    @RequestMapping("/userloginout")
     @ResponseBody
     public String userLoginOutController(HttpServletRequest request){
               String token = request.getHeader("token");
-        Map<String,String> map = null;
-        try {
-            map = TokenUtil.verifyToken(token);
-        } catch (Exception e) {
-            return "token_no_use";
-        }
-        String username = map.get("username");
-              String userid = map.get("userid");
-              if(username == null || "".equals(username) ||userid == null || "".equals(userid)){
-                  throw new RuntimeException("token内容被篡改");
-              }
-              TbUser tempUser =new TbUser();
-              tempUser.setUserId(Integer.valueOf(userid));
-              tempUser.setUserName(username);
-              tempUser.setLoginStatus("0");
-              tbUserService.updateLoginStatus(tempUser);
-              return  "successLoginOut";
+        Map<String ,String> maps= (Map<String, String>) request.getAttribute("request_parameters");
+            String username= maps.get("username");
+            RedisUtil.del(username);
+            return  "successLoginOut";
     }
 
 }

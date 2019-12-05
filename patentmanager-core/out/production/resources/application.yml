@@ -40,7 +40,7 @@ spring:
 
   #redis配置
   redis:
-    host: 172.16.138.240
+    host: 60.203.205.70
     port: 6379
     password:
     database: 1

@@ -26,7 +26,7 @@ public class MyHandlerIntercepter implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
        String token = request.getHeader("token");
-       if(token == null) return false;
+       if(token == null || token == "undefined") return false;
        try {
            Map<String,String> map = TokenUtil.verifyToken(token);
            /*判断当前redis中的此用户是否处于登陆状态 否则 则强制重新登陆*/
